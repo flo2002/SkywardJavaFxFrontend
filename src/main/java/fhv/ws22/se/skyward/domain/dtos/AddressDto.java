@@ -1,7 +1,5 @@
 package fhv.ws22.se.skyward.domain.dtos;
 
-import org.modelmapper.ModelMapper;
-
 public class AddressDto extends AbstractDto {
     private String street;
     private Integer houseNumber;
