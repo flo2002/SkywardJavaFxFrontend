@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fhv.ws22.se.skyward.view.AddRoomController">
+   <children>
+      <VBox prefHeight="700.0" prefWidth="230.0" style="-fx-background-color: #008080;" AnchorPane.bottomAnchor="-0.39999999999997726" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane prefHeight="136.0" prefWidth="170.0">
+               <children>
+                  <ImageView fitHeight="185.0" fitWidth="170.0" layoutX="40.0" layoutY="-20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/SkyWardIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onHomeButtonClick" prefHeight="85.0" prefWidth="230.0" text="Home" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <stylesheets>
+                  <URL value="@css/styles.css" />
+               </stylesheets>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/homeIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onBookingButtonClick" prefHeight="85.0" prefWidth="230.0" styleClass="active-item" text="Booking" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <stylesheets>
+                  <URL value="@css/styles.css" />
+               </stylesheets>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/bookingIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onInvoicePageButtonClick" prefHeight="85.0" prefWidth="230.0" text="Invoice" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <stylesheets>
+                  <URL value="@css/styles.css" />
+               </stylesheets>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/invoiceIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onRoomCapacityButtonClick" prefHeight="85.0" prefWidth="231.0" text="Room Capacity" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <stylesheets>
+                  <URL value="@css/styles.css" />
+               </stylesheets>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/room.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+         </children>
+      </VBox>
+      <HBox layoutX="300.0" layoutY="246.0" prefHeight="318.0" prefWidth="948.0">
+         <children>
+            <TableView fx:id="roomTable" editable="true" prefHeight="307.0" prefWidth="948.0" stylesheets="@css/styles.css">
+               <columns>
+                  <TableColumn fx:id="checkboxCol" prefWidth="72.800048828125" text="Checkbox" />
+                  <TableColumn fx:id="roomNumberCol" editable="false" prefWidth="193.60003662109375" styleClass="css/style.css" text="Room Number" />
+                  <TableColumn fx:id="roomTypeNameCol" prefWidth="199.2000732421875" text="Type" />
+                  <TableColumn fx:id="roomTypePriceCol" prefWidth="234.39990234375" text="Cost" />
+                  <TableColumn fx:id="roomStateNameCol" prefWidth="250.39995117187505" text="State" />
+               </columns>
+            </TableView>
+         </children>
+      </HBox>
+      <Pane layoutX="228.0" prefHeight="135.0" prefWidth="1073.0" style="-fx-background-color: #008080;" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="-1.0">
+         <children>
+            <Text fill="WHITE" layoutX="460.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Rooms">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <Label layoutX="15.0" layoutY="90.0" onMouseClicked="#onBookingButtonClick" text="Booking" textFill="#d4d4d4">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="120.0" layoutY="90.0" text="&gt;" textFill="#d4d4d4">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="155.0" layoutY="90.0" text="Add Rooms" textFill="#d4d4d4">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Button id="addguest" layoutX="1097.0" layoutY="586.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="30.0" prefWidth="152.0" stylesheets="@css/styles.css" text="Add Rooms to Booking" textFill="WHITE" />
+      <Pane layoutX="300.0" layoutY="198.0" prefHeight="36.0" prefWidth="946.0">
+         <children>
+            <CheckBox fx:id="filterSingleRoom" layoutX="146.0" layoutY="6.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="69.0" stylesheets="@css/styles.css" text="Single">
+               <font>
+                  <Font size="14.0" />
+               </font></CheckBox>
+            <CheckBox fx:id="filterDoubleRoom" layoutX="278.0" layoutY="7.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="92.0" text="Double">
+               <font>
+                  <Font size="14.0" />
+               </font></CheckBox>
+            <CheckBox fx:id="filterTripleRoom" layoutX="432.0" layoutY="8.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="62.0" text="Triple">
+               <font>
+                  <Font size="14.0" />
+               </font></CheckBox>
+            <CheckBox fx:id="filterTwinRoom" layoutX="576.0" layoutY="8.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="62.0" text="Twin">
+               <font>
+                  <Font size="14.0" />
+               </font></CheckBox>
+            <CheckBox fx:id="filterQueenRoom" layoutX="727.0" layoutY="8.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="77.0" text="Queen">
+               <font>
+                  <Font size="14.0" />
+               </font></CheckBox>
+            <Label layoutY="-2.0" prefHeight="35.0" prefWidth="109.0" text="Select Room:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <ColorAdjust />
+         </effect>
+      </Pane>
+      <Label layoutX="300.0" layoutY="155.0" prefHeight="35.0" prefWidth="278.0" text="Current Booking number:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="bNrPlaceholder" layoutX="579.0" layoutY="155.0" prefHeight="35.0" prefWidth="47.0" text="bid">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button id="confirm" layoutX="300.0" layoutY="586.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="30.0" prefWidth="82.0" stylesheets="@css/styles.css" text="Back" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

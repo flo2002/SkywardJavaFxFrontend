@@ -1,0 +1,187 @@
+.success_popup {
+    -fx-padding: 20px;
+    -fx-background-color: #50C878FF;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-background-radius: 5px;
+}
+
+.error_popup {
+    -fx-padding: 20px;
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-background-radius:5px;
+}
+
+.button
+{
+    -fx-background-color :  #008080;
+}
+.button:hover
+{
+    -fx-background-color :  #80004C ;
+}
+.button:pressed
+{
+    -fx-background-color : #80004C ;
+}
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-cell-size : 20;
+    -fx-background-color:   #80004C;
+}
+.table-view .column-header .label{
+
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+.table-view .cell{
+    -fx-cell-size: 30;
+    -fx-text-fill: #000000;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-row-cell:selected {
+    -fx-background-color:  #80004C;
+}
+.table-row-cell:selected .text {
+    -fx-fill : white ;
+
+}
+/* scroll bar starts here */
+
+/* The increment and decrement button CSS class of scrollbar */
+.table-view .increment-button ,.table-view .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 2em;
+
+}
+
+/* The main scrollbar **track** CSS class  */
+.table-view .scroll-bar:horizontal .track,
+.table-view .scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color:derive(  #80004C,80%);
+    -fx-background-radius: 2em;
+    -fx-border-radius:2em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color:derive( #80004C,90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+
+/* chart properties */
+
+.chart {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+    -fx-legend-visible: false;
+}
+.chart-plot-background {
+    -fx-background-color:transparent;
+}
+
+.chart-pie {
+    -fx-border-color: derive(-fx-pie-color, 1%);
+    -fx-border-width: 0px;
+}
+
+#addroom {
+    -fx-background-color: #80004C;
+}
+
+#addguest {
+    -fx-background-color: #80004C;
+}
+
+#confirm {
+    -fx-background-color:  #80004C;
+}
+
+#search {
+    -fx-background-color:  #80004C;
+}
+
+.active-item {
+    -fx-background-color: #80004C;
+}
+
+* {
+    -fx-primary-color: #80004C;
+    -fx-secondary-color: #008080;
+    -fx-light-grey-color: #d1d1d1;
+    /*Set focus color*/
+    -fx-focus-color: -fx-primary-color;
+}
+
+/*-----------------------------------------
+Customize the right button background color
+-------------------------------------------*/
+.date-picker .arrow-button {
+    -fx-background-color: -fx-primary-color;
+    -fx-background-radius: 0;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
+/*-----------------------------------------
+Customize popup content
+-------------------------------------------*/
+.date-picker .cell {
+    -fx-background-color: white;
+}
+
+.date-picker .cell:hover {
+    -fx-background-color: -fx-primary-color;
+}
+
+.date-picker.cell:focused {
+    -fx-background-color: -fx-primary-color;
+}
+
+/*-----------------------------------------
+Customize the selected cell
+-------------------------------------------*/
+.date-picker .selected {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
+}
+
+.date-picker .selected:focused {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
+}
+
+.date-picker-popup {
+    -fx-border-color: transparent;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: -fx-primary-color;
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .week-number-cell {
+    -fx-text-fill: -fx-primary-color;
+}
+
+/*-----------------------------------------
+Customize left and right arrow
+-------------------------------------------*/
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: white;
+}

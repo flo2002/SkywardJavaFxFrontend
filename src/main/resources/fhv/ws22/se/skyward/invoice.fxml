@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fhv.ws22.se.skyward.view.InvoiceController">
+    <VBox prefHeight="711.0" prefWidth="230.0" style="-fx-background-color: #008080;">
+        <children>
+            <Pane prefHeight="136.0" prefWidth="170.0">
+                <children>
+                    <ImageView fitHeight="185.0" fitWidth="170.0" layoutX="40.0" layoutY="-20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/SkyWardIcon.png" />
+                        </image>
+                    </ImageView>
+                </children>
+            </Pane>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onHomeButtonClick" prefHeight="85.0" prefWidth="230.0" text="Home" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+                <stylesheets>
+                    <URL value="@css/styles.css" />
+                </stylesheets>
+            <graphic>
+               <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@icons/homeIcon.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+            <padding>
+               <Insets left="50.0" />
+            </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onBookingButtonClick" prefHeight="85.0" prefWidth="230.0" styleClass="active-item" text="Booking" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+                <stylesheets>
+                    <URL value="@css/styles.css" />
+                </stylesheets>
+            <graphic>
+               <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@icons/bookingIcon.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+            <padding>
+               <Insets left="50.0" />
+            </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onInvoicePageButtonClick" prefHeight="85.0" prefWidth="230.0" text="Invoice" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+                <stylesheets>
+                    <URL value="@css/styles.css" />
+                </stylesheets>
+            <graphic>
+               <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@icons/invoiceIcon.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+            <padding>
+               <Insets left="50.0" />
+            </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onRoomCapacityButtonClick" prefHeight="85.0" prefWidth="231.0" text="Room Capacity" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+                <stylesheets>
+                    <URL value="@css/styles.css" />
+                </stylesheets>
+                <graphic>
+                    <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/room.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+                <padding>
+                    <Insets left="50.0" />
+                </padding>
+            </Button>
+        </children>
+    </VBox>
+   <AnchorPane layoutX="363.0" prefHeight="711.0" prefWidth="625.0">
+      <children>
+         <Label layoutX="10.0" layoutY="-2.0" prefHeight="46.0" prefWidth="124.0" text="Invoice">
+            <font>
+               <Font size="38.0" />
+            </font></Label>
+         <Label layoutX="105.0" layoutY="203.0" text="Check-In:">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+         <Label layoutX="400.0" layoutY="203.0" text="Check-Out:">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+         <Label layoutX="10.0" layoutY="54.0" text="Name:">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+         <Label layoutX="484.0" layoutY="535.0" text="Payed:">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+         <Label fx:id="namePlaceholder" layoutX="145.0" layoutY="54.0" text="NamePlaceholder">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+          <ComboBox fx:id="namePlaceholderInput" layoutX="145.0" layoutY="54.0"></ComboBox>
+         <Label fx:id="payPlaceholder" layoutX="484.0" layoutY="570.0" prefHeight="27.0" prefWidth="138.0" text="PaidPlaceHolder">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+         <Label fx:id="checkInDatePlaceholder" layoutX="105.0" layoutY="230.0" text="DD/MM/YYYY">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+         <Label fx:id="checkOutDatePlaceholder" layoutX="400.0" layoutY="230.0" text="DD/MM/YYYY">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+         <Label fx:id="invoiceDatePlaceholder" layoutX="42.0" layoutY="570.0" text="DD/MM/YYYY">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+         <Label layoutX="42.0" layoutY="535.0" text="Invoice Date:">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+         <Label layoutX="10.0" layoutY="82.0" text="Invoice Number:">
+            <font>
+               <Font size="14.0" />
+            </font></Label>
+         <Label layoutX="10.0" layoutY="103.0" text="Reservation number:">
+            <font>
+               <Font size="14.0" />
+            </font></Label>
+         <Label fx:id="bookingNumberPlaceholder" layoutX="145.0" layoutY="103.0" text="ReservationNumberPH">
+            <font>
+               <Font size="14.0" />
+            </font></Label>
+         <Label fx:id="invoiceNumberPlaceholder" layoutX="145.0" layoutY="82.0" text="InvoiceNumberPH">
+            <font>
+               <Font size="14.0" />
+            </font></Label>
+         <ImageView fitHeight="124.0" fitWidth="155.0" layoutX="503.0" layoutY="-34.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@icons/SkyWardIcon.png" />
+            </image>
+         </ImageView>
+         <Line endX="474.199951171875" endY="1.52587890625E-5" layoutX="153.0" layoutY="203.0" startX="-145.13336181640625" startY="1.52587890625E-5" />
+         <Line endX="474.800048828125" layoutX="154.0" layoutY="265.0" startX="-146.26666259765625" />
+         <GridPane layoutX="115.0" layoutY="280.0" prefHeight="231.0" prefWidth="406.0" stylesheets="@css/styles.css">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+            <children>
+               <TableView fx:id="chargeableItemTable" prefHeight="222.0" prefWidth="359.0" stylesheets="@css/styles.css">
+                 <columns>
+                   <TableColumn fx:id="itemNameCol" prefWidth="130.66680908203125" text="Items" />
+                   <TableColumn fx:id="itemPriceCol" prefWidth="131.73333740234375" text="Price" />
+                   <TableColumn fx:id="itemQuantityCol" prefWidth="145.066650390625" text="Nights/Quantity" />
+                 </columns>
+               </TableView>
+            </children>
+         </GridPane>
+         <Pane layoutX="259.0" layoutY="643.0" prefHeight="46.0" prefWidth="360.0" style="-fx-background-color: white;">
+            <children>
+               <Label fx:id="totalPricePlaceholder" layoutX="151.0" layoutY="1.0" text="PricePlaceHolder">
+                  <font>
+                     <Font size="18.0" />
+                  </font></Label>
+               <Label layoutX="95.0" layoutY="1.0" text="Total:">
+                  <font>
+                     <Font size="18.0" />
+                  </font></Label>
+               <Line endX="66.69998168945312" layoutX="220.0" layoutY="28.0" startX="-70.10000610351562" />
+               <Line endX="47.300018310546875" layoutX="241.0" layoutY="34.0" startX="-91.89999389648438" />
+            </children>
+         </Pane>
+         <Label fx:id="hotelNamePlaceholder" layoutX="535.0" layoutY="66.0" text="SkyWard Hotel">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="hotelStreetPlaceholder" layoutX="535.0" layoutY="87.0" prefHeight="20.0" prefWidth="86.0" text="our Address">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="hotelCityPlaceholder" layoutX="535.0" layoutY="108.0" text="our Tel">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="hotelCountryPlaceholder" layoutX="535.0" layoutY="124.0" prefHeight="27.0" prefWidth="82.0" text="our Email">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="customerStreetPlaceholder" layoutX="10.0" layoutY="141.0" text="Address">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="customerCityPlaceholder" layoutX="10.0" layoutY="161.0" text="Tel">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="customerCountryPlaceholder" layoutX="10.0" layoutY="181.0" prefHeight="15.0" prefWidth="36.0" text="Email">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <Label layoutX="263.0" layoutY="535.0" text="Payment Type:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Label layoutX="263.0" layoutY="570.0" text="Payment">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+      </children>
+   </AnchorPane>
+   <AnchorPane layoutX="1130.0" layoutY="-2.0" prefHeight="713.0" prefWidth="170.0" style="-fx-background-color: #008080;">
+      <children>
+         <Button layoutX="29.0" layoutY="142.0" mnemonicParsing="false" onAction="#onSplitButtonClick" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #80004C;" stylesheets="@css/styles.css" text="Split" textFill="WHITE">
+            <font>
+               <Font size="14.0" />
+            </font></Button>
+         <Button fx:id="payButton" layoutX="29.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPayButtonClick" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #80004C;" stylesheets="@css/styles.css" text="Pay" textFill="WHITE">
+            <font>
+               <Font size="14.0" />
+            </font></Button>
+         <Button layoutX="29.0" layoutY="620.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #53e089;" stylesheets="@css/styles.css" text="Save Invoice" textFill="WHITE">
+            <font>
+               <Font size="14.0" />
+            </font></Button>
+         <Button fx:id="editButton" layoutX="29.0" layoutY="206.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #80004C;" stylesheets="@css/styles.css" text="Edit" textFill="WHITE">
+            <font>
+               <Font size="14.0" />
+            </font></Button>
+         <Button layoutX="29.0" layoutY="271.0" mnemonicParsing="false" onAction="#onPrintButtonClick" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #80004C;" stylesheets="@css/styles.css" text="Print" textFill="WHITE">
+            <font>
+               <Font size="14.0" />
+            </font></Button>
+         <Button id="confirm" layoutX="29.0" layoutY="331.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="30.0" prefWidth="120.0" stylesheets="@css/styles.css" text="Back" textFill="WHITE">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Button>
+      </children>
+   </AnchorPane>
+</AnchorPane>
