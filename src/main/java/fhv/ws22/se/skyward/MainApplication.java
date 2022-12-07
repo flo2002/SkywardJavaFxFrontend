@@ -19,7 +19,7 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException, NotBoundException {
-        System.setProperty("java.security.policy", "file:./src/main/resources/stockmarket.policy");
+        System.setProperty("java.security.policy", "file:./src/main/resources/skyward.policy");
 
         Injector injector = Guice.createInjector(new AppConfig());
 
