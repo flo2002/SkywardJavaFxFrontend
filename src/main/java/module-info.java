@@ -3,7 +3,6 @@ module fhv.ws22.se.skyward {
     requires javafx.fxml;
     requires java.sql;
     requires org.apache.logging.log4j;
-    requires modelmapper;
     requires com.google.guice;
     requires java.rmi;
 

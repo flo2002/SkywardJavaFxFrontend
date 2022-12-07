@@ -18,7 +18,7 @@ public class MainApplication extends Application {
     private static final Logger logger = LogManager.getLogger("SkyWard");
 
     @Override
-    public void start(Stage stage) throws IOException, NotBoundException {
+    public void start(Stage stage) throws IOException {
         System.setProperty("java.security.policy", "file:./src/main/resources/skyward.policy");
 
         Injector injector = Guice.createInjector(new AppConfig());
