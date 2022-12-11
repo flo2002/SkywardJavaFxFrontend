@@ -1,8 +1,10 @@
 package fhv.ws22.se.skyward.view;
 
 import fhv.ws22.se.skyward.domain.dtos.RoomDto;
+import fhv.ws22.se.skyward.view.util.ControllerNavigationUtil;
 import fhv.ws22.se.skyward.view.util.RoomCapacity;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -19,6 +21,8 @@ import java.util.List;
 public class RoomCapacityController extends AbstractController {
     @FXML
     private TableView<RoomCapacity> table;
+
+    private int roomCapacityShift = 0;
 
     private Boolean isOccupied(RoomDto askedRoom, LocalDate date) {
         List<RoomDto> availableRooms = session.getAvailableRooms(LocalDateTime.of(date, LocalTime.now()), LocalDateTime.of(date.plusDays(1), LocalTime.now()));
@@ -41,11 +45,11 @@ public class RoomCapacityController extends AbstractController {
             RoomCapacity roomCap = new RoomCapacity();
 
             roomCap.setRoomNumber(room.getRoomNumber());
-            roomCap.setDay1(isOccupied(room, LocalDate.now()));
-            roomCap.setDay2(isOccupied(room, LocalDate.now().plusDays(1)));
-            roomCap.setDay3(isOccupied(room, LocalDate.now().plusDays(2)));
-            roomCap.setDay4(isOccupied(room, LocalDate.now().plusDays(3)));
-            roomCap.setDay5(isOccupied(room, LocalDate.now().plusDays(4)));
+            roomCap.setDay1(isOccupied(room, LocalDate.now().plusDays(roomCapacityShift)));
+            roomCap.setDay2(isOccupied(room, LocalDate.now().plusDays(1+roomCapacityShift)));
+            roomCap.setDay3(isOccupied(room, LocalDate.now().plusDays(2+roomCapacityShift)));
+            roomCap.setDay4(isOccupied(room, LocalDate.now().plusDays(3+roomCapacityShift)));
+            roomCap.setDay5(isOccupied(room, LocalDate.now().plusDays(4+roomCapacityShift)));
 
             roomCaps.add(roomCap);
         }
@@ -55,7 +59,7 @@ public class RoomCapacityController extends AbstractController {
 
         List<TableColumn<RoomCapacity, String>> columns = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            TableColumn<RoomCapacity, String> column = new TableColumn<>(LocalDate.now().plusDays(i).format(DateTimeFormatter.ofPattern("dd.MM")) + " to " + LocalDate.now().plusDays(i + 1).format(DateTimeFormatter.ofPattern("dd.MM")));
+            TableColumn<RoomCapacity, String> column = new TableColumn<>(LocalDate.now().plusDays(i + roomCapacityShift).format(DateTimeFormatter.ofPattern("dd.MM")) + " to " + LocalDate.now().plusDays(i + 1 + roomCapacityShift).format(DateTimeFormatter.ofPattern("dd.MM")));
             if (i == 0) {
                 column.setCellValueFactory(entry -> new SimpleObjectProperty<>(entry.getValue().getDay1() ? "free" : "occupied"));
             } else if (i == 1) {
@@ -93,5 +97,19 @@ public class RoomCapacityController extends AbstractController {
 
         table.getColumns().addAll(roomNumberCol, columns.get(0), columns.get(1), columns.get(2), columns.get(3), columns.get(4));
         table.getItems().addAll(roomCaps);
+    }
+
+    public void onMinusButtonClick(Event event) {
+        roomCapacityShift -= 7;
+        table.getColumns().clear();
+        table.getItems().clear();
+        initialize();
+    }
+
+    public void onPlusButtonClick(Event event) {
+        roomCapacityShift += 7;
+        table.getColumns().clear();
+        table.getItems().clear();
+        initialize();
     }
 }
