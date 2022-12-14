@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public class InvoiceController extends AbstractController {
@@ -141,6 +142,76 @@ public class InvoiceController extends AbstractController {
     @FXML
     public void backButtonClick(Event event) {
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
+    }
+
+    public String onPaymentClick(Event event){
+        String Res = tmpInvoice.getInvoiceNumber().toString();
+        BigDecimal totalPrice = new BigDecimal(0);
+
+        chargeableItemTable.getItems().clear();
+        List<ChargeableItemDto> chargeableItems = session.getAll(ChargeableItemDto.class);
+        chargeableItems.removeIf(chargeableItemDto -> !chargeableItemDto.getBooking().getId().equals(tmpInvoice.getBooking().getId()));
+        chargeableItemTable.getItems().addAll(chargeableItems);
+
+        for (ChargeableItemDto chargeableItem : chargeableItems) {
+            totalPrice = totalPrice.add(chargeableItem.getPrice().multiply(BigDecimal.valueOf(chargeableItem.getQuantity())));
+        }
+        String Amount = totalPrice.toString();
+        String date = tmpInvoice.getInvoiceDateTime().toLocalDate().toString();
+        String[] datePart = date.split("-");
+        int month = Integer.parseInt(datePart[1]);
+
+        String monthName;
+        switch (month) {
+            case 1:
+                monthName = "JAN";
+                break;
+            case 2:
+                monthName = "FEB";
+                break;
+            case 3:
+                monthName = "MAR";
+                break;
+            case 4:
+                monthName = "APR";
+                break;
+            case 5:
+                monthName = "MAY";
+                break;
+            case 6:
+                monthName = "JUN";
+                break;
+            case 7:
+                monthName = "JUL";
+                break;
+            case 8:
+                monthName = "AUG";
+                break;
+            case 9:
+                monthName = "SEP";
+                break;
+            case 10:
+                monthName = "OCT";
+                break;
+            case 11:
+                monthName = "NOV";
+                break;
+            case 12:
+                monthName = "DEC";
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid month: " + month);
+        }
+
+        String formatDate = datePart[2] + monthName + datePart[0];
+        String Iban = "AT07123412341234123412";
+
+        payButton.setText("Unpay");
+        tmpInvoice.setIsPaid(true);
+        updateData();
+
+        System.out.println("Res#="+Res+"#Date="+formatDate+"#Amount="+Amount+"#IBAN="+Iban+";");
+        return null;
     }
 
     public void updateData() {
