@@ -31,6 +31,7 @@ public class SearchCustomerController extends AbstractController {
 
     @FXML
     protected void initialize() {
+        super.initialize();
         tmpBooking = session.getTmpBooking();
         List<CustomerDto> selectedCustomer = tmpBooking.getCustomers();
 

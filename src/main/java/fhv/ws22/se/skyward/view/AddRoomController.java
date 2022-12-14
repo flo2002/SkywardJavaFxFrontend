@@ -39,6 +39,7 @@ public class AddRoomController extends AbstractController {
 
     @FXML
     protected void initialize() {
+        super.initialize();
         tmpBooking = session.getTmpBooking();
         List<RoomDto> selectedRooms = tmpBooking.getRooms();
 

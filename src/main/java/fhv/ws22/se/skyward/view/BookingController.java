@@ -56,6 +56,7 @@ public class BookingController extends AbstractController {
 
     @FXML
     protected void initialize() {
+        super.initialize();
         tmpBooking = session.getTmpBooking();
 
         checkInDatePicker.setDayCellFactory(picker -> new DateCell() {

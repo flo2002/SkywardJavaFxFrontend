@@ -26,6 +26,7 @@ public class InvoiceOverviewController extends AbstractController {
 
     @FXML
     protected void initialize() {
+        super.initialize();
         tmpBooking = session.getTmpBooking();
 
         invoiceNumberCol.setCellValueFactory(new PropertyValueFactory<>("invoiceNumber"));

@@ -37,6 +37,7 @@ public class RoomCapacityController extends AbstractController {
 
     @FXML
     protected void initialize() {
+        super.initialize();
         List<RoomDto> rooms = session.getAll(RoomDto.class);
         List<RoomCapacity> roomCaps = new ArrayList<>();
 

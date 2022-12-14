@@ -36,6 +36,7 @@ public class AddCustomerController extends AbstractController {
 
     @FXML
     protected void initialize() {
+        super.initialize();
         tmpBooking = session.getTmpBooking();
         bNrPlaceholder.setText(tmpBooking.getBookingNumber().toString());
 

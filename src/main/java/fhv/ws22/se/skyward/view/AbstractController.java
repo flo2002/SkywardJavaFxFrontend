@@ -27,9 +27,7 @@ public abstract class AbstractController {
     @FXML
     protected void initialize() {
         try {
-            System.out.println("Session.initialize");
             session = (SessionService) service.getService("session");
-            System.out.println("Session: " + session);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
