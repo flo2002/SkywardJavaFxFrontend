@@ -1,7 +1,6 @@
 package fhv.ws22.se.skyward.view;
 
 import fhv.ws22.se.skyward.domain.dtos.RoomDto;
-import fhv.ws22.se.skyward.view.util.ControllerNavigationUtil;
 import fhv.ws22.se.skyward.view.util.RoomCapacity;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;

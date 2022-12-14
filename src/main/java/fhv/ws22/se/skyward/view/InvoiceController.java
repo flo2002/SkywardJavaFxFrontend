@@ -66,8 +66,8 @@ public class InvoiceController extends AbstractController {
 
     @FXML
     protected void initialize() {
-        tmpBooking = tmpDataService.getTmpBooking();
-        tmpInvoice = tmpDataService.getTmpInvoice();
+        tmpBooking = session.getTmpBooking();
+        tmpInvoice = session.getTmpInvoice();
 
         itemNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         itemPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -115,7 +115,7 @@ public class InvoiceController extends AbstractController {
     @FXML
     public void onConfirmButtonClick(Event event){
         session.update(tmpInvoice.getId(), tmpInvoice);
-        tmpDataService.resetTmpInvoice();
+        session.resetTmpInvoice();
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
     @FXML

@@ -1,8 +1,8 @@
 package fhv.ws22.se.skyward.view;
 
 import com.google.inject.Inject;
+import fhv.ws22.se.skyward.domain.ServiceProviderService;
 import fhv.ws22.se.skyward.domain.SessionService;
-import fhv.ws22.se.skyward.domain.TmpDataService;
 import fhv.ws22.se.skyward.domain.dtos.BookingDto;
 import fhv.ws22.se.skyward.domain.dtos.InvoiceDto;
 import fhv.ws22.se.skyward.view.util.ControllerNavigationUtil;
@@ -11,18 +11,29 @@ import javafx.fxml.FXML;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class AbstractController {
-    protected static final Logger logger = LogManager.getLogger("AddGuestController");
+import java.rmi.RemoteException;
 
-    @Inject
+public abstract class AbstractController {
+    protected static final Logger logger = LogManager.getLogger("JavaFxController");
     protected SessionService session;
     @Inject
-    protected TmpDataService tmpDataService;
+    private ServiceProviderService service;
     @Inject
     protected ControllerNavigationUtil controllerNavigationUtil;
 
     protected BookingDto tmpBooking;
     protected InvoiceDto tmpInvoice;
+
+    @FXML
+    protected void initialize() {
+        try {
+            System.out.println("Session.initialize");
+            session = (SessionService) service.getService("session");
+            System.out.println("Session: " + session);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void onHomeButtonClick(Event event) {
@@ -31,7 +42,7 @@ public abstract class AbstractController {
         }
         if (tmpInvoice != null) {
             session.update(tmpInvoice.getId(), tmpInvoice);
-            tmpDataService.resetTmpInvoice();
+            session.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/dashboard.fxml", "Home");
     }
@@ -43,7 +54,7 @@ public abstract class AbstractController {
         }
         if (tmpInvoice != null) {
             session.update(tmpInvoice.getId(), tmpInvoice);
-            tmpDataService.resetTmpInvoice();
+            session.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
@@ -55,7 +66,7 @@ public abstract class AbstractController {
         }
         if (tmpInvoice != null) {
             session.update(tmpInvoice.getId(), tmpInvoice);
-            tmpDataService.resetTmpInvoice();
+            session.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/invoice-overview.fxml", "Invoice");
     }
@@ -67,7 +78,7 @@ public abstract class AbstractController {
         }
         if (tmpInvoice != null) {
             session.update(tmpInvoice.getId(), tmpInvoice);
-            tmpDataService.resetTmpInvoice();
+            session.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/room-capacity.fxml", "Room Capacity");
     }

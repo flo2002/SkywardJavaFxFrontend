@@ -3,7 +3,6 @@ package fhv.ws22.se.skyward.view;
 import fhv.ws22.se.skyward.domain.dtos.CustomerDto;
 import fhv.ws22.se.skyward.view.util.NotificationUtil;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -32,7 +31,7 @@ public class SearchCustomerController extends AbstractController {
 
     @FXML
     protected void initialize() {
-        tmpBooking = tmpDataService.getTmpBooking();
+        tmpBooking = session.getTmpBooking();
         List<CustomerDto> selectedCustomer = tmpBooking.getCustomers();
 
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));

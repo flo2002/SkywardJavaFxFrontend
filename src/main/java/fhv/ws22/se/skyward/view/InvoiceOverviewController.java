@@ -26,7 +26,7 @@ public class InvoiceOverviewController extends AbstractController {
 
     @FXML
     protected void initialize() {
-        tmpBooking = tmpDataService.getTmpBooking();
+        tmpBooking = session.getTmpBooking();
 
         invoiceNumberCol.setCellValueFactory(new PropertyValueFactory<>("invoiceNumber"));
         invoiceDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("invoiceDateTime"));
@@ -37,7 +37,7 @@ public class InvoiceOverviewController extends AbstractController {
             row.setOnMouseClicked(mouseEvent -> {
                 if (mouseEvent.getClickCount() == 2 && (! row.isEmpty()) ) {
                     InvoiceDto rowData = row.getItem();
-                    tmpDataService.setTmpInvoice(rowData);
+                    session.setTmpInvoice(rowData);
                     controllerNavigationUtil.navigate(mouseEvent,"src/main/resources/fhv/ws22/se/skyward/invoice.fxml", "Invoice");
                 }
             });
