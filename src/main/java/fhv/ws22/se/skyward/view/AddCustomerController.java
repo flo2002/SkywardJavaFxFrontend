@@ -36,7 +36,7 @@ public class AddCustomerController extends AbstractController {
 
     @FXML
     private void initialize() {
-        tmpBooking = session.getTmpBooking();
+        tmpBooking = tmpDataService.getTmpBooking();
         bNrPlaceholder.setText(tmpBooking.getBookingNumber().toString());
 
         zipTextField.focusedProperty().addListener((arg0, oldValue, newValue) -> {
@@ -58,7 +58,7 @@ public class AddCustomerController extends AbstractController {
 
     @FXML
     public void onConfirmButtonClick(ActionEvent event) {
-        tmpBooking = session.getTmpBooking();
+        tmpBooking = tmpDataService.getTmpBooking();
 
         if (firstNameTextField.getText().isEmpty()) {
             firstNameTextField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");

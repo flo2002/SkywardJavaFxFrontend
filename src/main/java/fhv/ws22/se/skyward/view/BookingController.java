@@ -56,7 +56,7 @@ public class BookingController extends AbstractController {
 
     @FXML
     protected void initialize() {
-        tmpBooking = session.getTmpBooking();
+        tmpBooking = tmpDataService.getTmpBooking();
 
         checkInDatePicker.setDayCellFactory(picker -> new DateCell() {
             public void updateItem(LocalDate date, boolean empty) {
@@ -130,7 +130,7 @@ public class BookingController extends AbstractController {
             roomTable.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
         }
         else {
-            session.resetTmpBooking();
+            tmpDataService.resetTmpBooking();
             NotificationUtil.getInstance().showSuccessNotification("The Booking was saved", event);
             controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/dashboard.fxml", "Dashboard");
         }
@@ -141,7 +141,7 @@ public class BookingController extends AbstractController {
 
         if (isSure){
             session.delete(tmpBooking.getId(), BookingDto.class);
-            session.resetTmpBooking();
+            tmpDataService.resetTmpBooking();
             NotificationUtil.getInstance().showSuccessNotification("The Booking was deleted", event);
             controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/dashboard.fxml", "Dashboard");
         } else {

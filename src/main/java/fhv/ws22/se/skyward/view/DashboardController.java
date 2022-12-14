@@ -60,7 +60,7 @@ public class DashboardController extends AbstractController {
             row.setOnMouseClicked(mouseEvent -> {
                 if (mouseEvent.getClickCount() == 2 && (! row.isEmpty()) ) {
                     BookingDto rowData = row.getItem();
-                    session.setTmpBooking(rowData);
+                    tmpDataService.setTmpBooking(rowData);
                     controllerNavigationUtil.navigate(mouseEvent,"src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
                 }
             });
@@ -71,7 +71,7 @@ public class DashboardController extends AbstractController {
             row.setOnMouseClicked(mouseEvent -> {
                 if (mouseEvent.getClickCount() == 2 && (! row.isEmpty()) ) {
                     BookingDto rowData = row.getItem();
-                    session.setTmpBooking(rowData);
+                    tmpDataService.setTmpBooking(rowData);
                     controllerNavigationUtil.navigate(mouseEvent,"src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
                 }
             });
@@ -85,7 +85,7 @@ public class DashboardController extends AbstractController {
     }
 
     public void onCreateBookingButtonClick(Event event) {
-        session.resetTmpBooking();
+        tmpDataService.resetTmpBooking();
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
 

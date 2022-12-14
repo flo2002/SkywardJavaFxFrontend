@@ -32,7 +32,7 @@ public class SearchCustomerController extends AbstractController {
 
     @FXML
     protected void initialize() {
-        tmpBooking = session.getTmpBooking();
+        tmpBooking = tmpDataService.getTmpBooking();
         List<CustomerDto> selectedCustomer = tmpBooking.getCustomers();
 
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));

@@ -2,6 +2,7 @@ package fhv.ws22.se.skyward.view;
 
 import com.google.inject.Inject;
 import fhv.ws22.se.skyward.domain.SessionService;
+import fhv.ws22.se.skyward.domain.TmpDataService;
 import fhv.ws22.se.skyward.domain.dtos.BookingDto;
 import fhv.ws22.se.skyward.domain.dtos.InvoiceDto;
 import fhv.ws22.se.skyward.view.util.ControllerNavigationUtil;
@@ -16,6 +17,8 @@ public abstract class AbstractController {
     @Inject
     protected SessionService session;
     @Inject
+    protected TmpDataService tmpDataService;
+    @Inject
     protected ControllerNavigationUtil controllerNavigationUtil;
 
     protected BookingDto tmpBooking;
@@ -28,7 +31,7 @@ public abstract class AbstractController {
         }
         if (tmpInvoice != null) {
             session.update(tmpInvoice.getId(), tmpInvoice);
-            session.resetTmpInvoice();
+            tmpDataService.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/dashboard.fxml", "Home");
     }
@@ -40,7 +43,7 @@ public abstract class AbstractController {
         }
         if (tmpInvoice != null) {
             session.update(tmpInvoice.getId(), tmpInvoice);
-            session.resetTmpInvoice();
+            tmpDataService.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
@@ -52,7 +55,7 @@ public abstract class AbstractController {
         }
         if (tmpInvoice != null) {
             session.update(tmpInvoice.getId(), tmpInvoice);
-            session.resetTmpInvoice();
+            tmpDataService.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/invoice-overview.fxml", "Invoice");
     }
@@ -64,7 +67,7 @@ public abstract class AbstractController {
         }
         if (tmpInvoice != null) {
             session.update(tmpInvoice.getId(), tmpInvoice);
-            session.resetTmpInvoice();
+            tmpDataService.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/room-capacity.fxml", "Room Capacity");
     }
