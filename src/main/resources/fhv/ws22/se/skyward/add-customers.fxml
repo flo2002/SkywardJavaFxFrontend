@@ -222,8 +222,8 @@
             <ChoiceBox fx:id="typeChoiceBox" layoutX="140.0" layoutY="295.0" prefHeight="26.0" prefWidth="270.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Private" />
-                     <String fx:value="Group" />
+                     <String fx:value="Individual" />
+                     <String fx:value="Company" />
                      <String fx:value="Travel Agency" />
                   </FXCollections>
                </items>
