@@ -9,7 +9,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 public class InvoiceController extends AbstractController {
@@ -144,7 +145,7 @@ public class InvoiceController extends AbstractController {
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
 
-    public String onPaymentClick(Event event){
+    public void onPaymentClick(Event event){
         String Res = tmpInvoice.getInvoiceNumber().toString();
         BigDecimal totalPrice = new BigDecimal(0);
 
@@ -156,7 +157,12 @@ public class InvoiceController extends AbstractController {
         for (ChargeableItemDto chargeableItem : chargeableItems) {
             totalPrice = totalPrice.add(chargeableItem.getPrice().multiply(BigDecimal.valueOf(chargeableItem.getQuantity())));
         }
-        String Amount = totalPrice.toString();
+        DecimalFormatSymbols dfs = DecimalFormatSymbols.getInstance();
+        dfs.setDecimalSeparator('.');
+        DecimalFormat df = new DecimalFormat("0.00", dfs);
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(2);
+        String Amount = df.format(totalPrice);
         String date = tmpInvoice.getInvoiceDateTime().toLocalDate().toString();
         String[] datePart = date.split("-");
         int month = Integer.parseInt(datePart[1]);
@@ -210,8 +216,8 @@ public class InvoiceController extends AbstractController {
         tmpInvoice.setIsPaid(true);
         updateData();
 
-        System.out.println("Res#="+Res+"#Date="+formatDate+"#Amount="+Amount+"#IBAN="+Iban+";");
-        return null;
+        String payment = "Res#="+Res+"#Date="+formatDate+"#Amount="+Amount+"#IBAN="+Iban+";";
+        session.handlePayment(payment);
     }
 
     public void updateData() {

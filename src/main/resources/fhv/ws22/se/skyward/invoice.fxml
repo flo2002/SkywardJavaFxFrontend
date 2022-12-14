@@ -279,7 +279,7 @@
                <Font size="14.0" />
             </font>
          </Button>
-         <Button id="confirm" fx:id="Payment" layoutX="29.0" layoutY="389.0" mnemonicParsing="false" onAction="#onPaymentClick" prefHeight="30.0" prefWidth="120.0" stylesheets="@css/styles.css" text="Payment" textFill="WHITE">
+         <Button id="confirm" fx:id="Payment" layoutX="29.0" layoutY="389.0" mnemonicParsing="false" onAction="#onPaymentClick" prefHeight="30.0" prefWidth="120.0" stylesheets="@css/styles.css" text="Sim. Online Pay." textFill="WHITE">
             <font>
                <Font size="14.0" />
             </font>
