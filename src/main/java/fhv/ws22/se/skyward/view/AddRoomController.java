@@ -40,7 +40,7 @@ public class AddRoomController extends AbstractController {
     @FXML
     protected void initialize() {
         super.initialize();
-        tmpBooking = session.getTmpBooking();
+        tmpBooking = tmpDataService.getTmpBooking();
         List<RoomDto> selectedRooms = tmpBooking.getRooms();
 
         roomNumberCol.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
@@ -80,47 +80,47 @@ public class AddRoomController extends AbstractController {
     }
 
     private void configureListener() {
-        if (session.getRoomFilterMap().size() == 0) {
+        if (tmpDataService.getRoomFilterMap().size() == 0) {
             HashMap<String, Boolean> filterMap = new HashMap<>();
             filterMap.put("Single", true);
             filterMap.put("Double", true);
             filterMap.put("Triple", false);
             filterMap.put("Twin", false);
             filterMap.put("Queen", false);
-            session.setRoomFilterMap(filterMap);
+            tmpDataService.setRoomFilterMap(filterMap);
         }
-        HashMap<String, Boolean> filterMap = session.getRoomFilterMap();
+        HashMap<String, Boolean> filterMap = tmpDataService.getRoomFilterMap();
 
         filterSingleRoom.selectedProperty().addListener((observable, oldValue, newValue) -> {
             filterMap.put("Single", filterSingleRoom.isSelected());
-            session.setRoomFilterMap(filterMap);
+            tmpDataService.setRoomFilterMap(filterMap);
             updateData();
         });
         filterDoubleRoom.selectedProperty().addListener((observable, oldValue, newValue) -> {
             filterMap.put("Double", filterDoubleRoom.isSelected());
-            session.setRoomFilterMap(filterMap);
+            tmpDataService.setRoomFilterMap(filterMap);
             updateData();
         });
         filterTripleRoom.selectedProperty().addListener((observable, oldValue, newValue) -> {
             filterMap.put("Triple", filterTripleRoom.isSelected());
-            session.setRoomFilterMap(filterMap);
+            tmpDataService.setRoomFilterMap(filterMap);
             updateData();
         });
         filterTwinRoom.selectedProperty().addListener((observable, oldValue, newValue) -> {
             filterMap.put("Twin", filterTwinRoom.isSelected());
-            session.setRoomFilterMap(filterMap);
+            tmpDataService.setRoomFilterMap(filterMap);
             updateData();
         });
         filterQueenRoom.selectedProperty().addListener((observable, oldValue, newValue) -> {
             filterMap.put("Queen", filterQueenRoom.isSelected());
-            session.setRoomFilterMap(filterMap);
+            tmpDataService.setRoomFilterMap(filterMap);
             updateData();
         });
     }
 
     @FXML
     public void onConfirmButtonClick(Event event) {
-        session.update(tmpBooking.getId(), tmpBooking);
+        domainService.update(tmpBooking.getId(), tmpBooking);
         NotificationUtil.getInstance().showSuccessNotification("The Rooms were added to the booking", event);
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
@@ -131,7 +131,7 @@ public class AddRoomController extends AbstractController {
     }
 
     public void updateData() {
-        HashMap<String, Boolean> filterMap = session.getRoomFilterMap();
+        HashMap<String, Boolean> filterMap = tmpDataService.getRoomFilterMap();
         if (filterMap.get("Single")) {
             filterSingleRoom.setSelected(true);
         }
@@ -148,8 +148,8 @@ public class AddRoomController extends AbstractController {
             filterQueenRoom.setSelected(true);
         }
 
-        List<RoomDto> rooms = session.getAvailableRooms(tmpBooking.getCheckInDateTime(), tmpBooking.getCheckOutDateTime());
-        rooms = session.filterRooms(rooms, filterMap);
+        List<RoomDto> rooms = domainService.getAvailableRooms(tmpBooking.getCheckInDateTime(), tmpBooking.getCheckOutDateTime());
+        rooms = tmpDataService.filterRooms(rooms, filterMap);
         rooms.addAll(tmpBooking.getRooms());
 
         roomTable.getItems().clear();

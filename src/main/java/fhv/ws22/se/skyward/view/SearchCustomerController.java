@@ -32,7 +32,7 @@ public class SearchCustomerController extends AbstractController {
     @FXML
     protected void initialize() {
         super.initialize();
-        tmpBooking = session.getTmpBooking();
+        tmpBooking = tmpDataService.getTmpBooking();
         List<CustomerDto> selectedCustomer = tmpBooking.getCustomers();
 
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -78,7 +78,7 @@ public class SearchCustomerController extends AbstractController {
 
     @FXML
     public void onConfirmCustomerSearchButtonClick(Event event) {
-        session.update(tmpBooking.getId(), tmpBooking);
+        domainService.update(tmpBooking.getId(), tmpBooking);
         NotificationUtil.getInstance().showSuccessNotification("The guests were added to the booking", event);
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
@@ -96,7 +96,7 @@ public class SearchCustomerController extends AbstractController {
 
     public void updateData(String filter) {
         customerTable.getItems().clear();
-        List<CustomerDto> customers = session.getAll(CustomerDto.class);
+        List<CustomerDto> customers = domainService.getAll(CustomerDto.class);
         List<CustomerDto> filteredCustomers = new ArrayList<CustomerDto>();
         for (CustomerDto customer : customers) {
             if (customer.getFirstName().toLowerCase().contains(filter.toLowerCase())

@@ -1,23 +1,24 @@
 package fhv.ws22.se.skyward.view;
 
 import com.google.inject.Inject;
-import fhv.ws22.se.skyward.domain.ServiceProviderService;
-import fhv.ws22.se.skyward.domain.SessionService;
 import fhv.ws22.se.skyward.domain.dtos.BookingDto;
 import fhv.ws22.se.skyward.domain.dtos.InvoiceDto;
+import fhv.ws22.se.skyward.domain.service.DomainService;
+import fhv.ws22.se.skyward.domain.service.ServiceProviderService;
+import fhv.ws22.se.skyward.domain.service.SessionService;
+import fhv.ws22.se.skyward.domain.service.TmpDataService;
 import fhv.ws22.se.skyward.view.util.ControllerNavigationUtil;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.rmi.RemoteException;
-
 public abstract class AbstractController {
     protected static final Logger logger = LogManager.getLogger("JavaFxController");
-    protected SessionService session;
     @Inject
-    private ServiceProviderService service;
+    private SessionService session;
+    protected DomainService domainService;
+    protected TmpDataService tmpDataService;
     @Inject
     protected ControllerNavigationUtil controllerNavigationUtil;
 
@@ -26,21 +27,22 @@ public abstract class AbstractController {
 
     @FXML
     protected void initialize() {
-        try {
-            session = (SessionService) service.getService("session");
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        ServiceProviderService serviceProvider = session.getServiceProvider();
+        domainService = (DomainService) serviceProvider.getService("DomainService");
+        tmpDataService = (TmpDataService) serviceProvider.getService("TmpDataService");
+        System.out.println(serviceProvider);
+        System.out.println(domainService);
+        System.out.println(tmpDataService);
     }
 
     @FXML
     public void onHomeButtonClick(Event event) {
         if (tmpBooking != null) {
-            session.update(tmpBooking.getId(), tmpBooking);
+            domainService.update(tmpBooking.getId(), tmpBooking);
         }
         if (tmpInvoice != null) {
-            session.update(tmpInvoice.getId(), tmpInvoice);
-            session.resetTmpInvoice();
+            domainService.update(tmpInvoice.getId(), tmpInvoice);
+            tmpDataService.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/dashboard.fxml", "Home");
     }
@@ -48,11 +50,11 @@ public abstract class AbstractController {
     @FXML
     public void onBookingButtonClick(Event event) {
         if (tmpBooking != null) {
-            session.update(tmpBooking.getId(), tmpBooking);
+            domainService.update(tmpBooking.getId(), tmpBooking);
         }
         if (tmpInvoice != null) {
-            session.update(tmpInvoice.getId(), tmpInvoice);
-            session.resetTmpInvoice();
+            domainService.update(tmpInvoice.getId(), tmpInvoice);
+            tmpDataService.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
@@ -60,11 +62,11 @@ public abstract class AbstractController {
     @FXML
     public void onInvoicePageButtonClick(Event event) {
         if (tmpBooking != null) {
-            session.update(tmpBooking.getId(), tmpBooking);
+            domainService.update(tmpBooking.getId(), tmpBooking);
         }
         if (tmpInvoice != null) {
-            session.update(tmpInvoice.getId(), tmpInvoice);
-            session.resetTmpInvoice();
+            domainService.update(tmpInvoice.getId(), tmpInvoice);
+            tmpDataService.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/invoice-overview.fxml", "Invoice");
     }
@@ -72,11 +74,11 @@ public abstract class AbstractController {
     @FXML
     public void onRoomCapacityButtonClick(Event event) {
         if (tmpBooking != null) {
-            session.update(tmpBooking.getId(), tmpBooking);
+            domainService.update(tmpBooking.getId(), tmpBooking);
         }
         if (tmpInvoice != null) {
-            session.update(tmpInvoice.getId(), tmpInvoice);
-            session.resetTmpInvoice();
+            domainService.update(tmpInvoice.getId(), tmpInvoice);
+            tmpDataService.resetTmpInvoice();
         }
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/room-capacity.fxml", "Room Capacity");
     }

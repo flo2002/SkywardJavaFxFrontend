@@ -67,8 +67,8 @@ public class InvoiceController extends AbstractController {
     @FXML
     protected void initialize() {
         super.initialize();
-        tmpBooking = session.getTmpBooking();
-        tmpInvoice = session.getTmpInvoice();
+        tmpBooking = tmpDataService.getTmpBooking();
+        tmpInvoice = tmpDataService.getTmpInvoice();
 
         itemNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         itemPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -115,8 +115,8 @@ public class InvoiceController extends AbstractController {
 
     @FXML
     public void onConfirmButtonClick(Event event){
-        session.update(tmpInvoice.getId(), tmpInvoice);
-        session.resetTmpInvoice();
+        domainService.update(tmpInvoice.getId(), tmpInvoice);
+        tmpDataService.resetTmpInvoice();
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
     @FXML
@@ -166,7 +166,7 @@ public class InvoiceController extends AbstractController {
         }
 
         chargeableItemTable.getItems().clear();
-        List<ChargeableItemDto> chargeableItems = session.getAll(ChargeableItemDto.class);
+        List<ChargeableItemDto> chargeableItems = domainService.getAll(ChargeableItemDto.class);
         chargeableItems.removeIf(chargeableItemDto -> !chargeableItemDto.getBooking().getId().equals(tmpInvoice.getBooking().getId()));
         chargeableItemTable.getItems().addAll(chargeableItems);
 

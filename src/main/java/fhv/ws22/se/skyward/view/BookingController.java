@@ -57,7 +57,7 @@ public class BookingController extends AbstractController {
     @FXML
     protected void initialize() {
         super.initialize();
-        tmpBooking = session.getTmpBooking();
+        tmpBooking = tmpDataService.getTmpBooking();
 
         checkInDatePicker.setDayCellFactory(picker -> new DateCell() {
             public void updateItem(LocalDate date, boolean empty) {
@@ -113,14 +113,14 @@ public class BookingController extends AbstractController {
             tmpBooking.setIsCheckedIn(false);
             updateData();
             checkInCheckOutButton.setText("Checked-Out");
-            session.update(tmpBooking.getId(), tmpBooking);
+            domainService.update(tmpBooking.getId(), tmpBooking);
             controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/invoice.fxml", "Invoice");
         }
     }
 
     @FXML
     public void onCreateBookingButtonClick(Event event) {
-        session.update(tmpBooking.getId(), tmpBooking);
+        domainService.update(tmpBooking.getId(), tmpBooking);
 
         if (tmpBooking.getCustomers()== null || tmpBooking.getCustomers().isEmpty()) {
             NotificationUtil.getInstance().showErrorNotification("Please add a Guest", event);
@@ -131,7 +131,7 @@ public class BookingController extends AbstractController {
             roomTable.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
         }
         else {
-            session.resetTmpBooking();
+            tmpDataService.resetTmpBooking();
             NotificationUtil.getInstance().showSuccessNotification("The Booking was saved", event);
             controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/dashboard.fxml", "Dashboard");
         }
@@ -141,8 +141,8 @@ public class BookingController extends AbstractController {
         boolean isSure = NotificationUtil.showAskNotification("Are you sure to delete this booking?", event);
 
         if (isSure){
-            session.delete(tmpBooking.getId(), BookingDto.class);
-            session.resetTmpBooking();
+            domainService.delete(tmpBooking.getId(), BookingDto.class);
+            tmpDataService.resetTmpBooking();
             NotificationUtil.getInstance().showSuccessNotification("The Booking was deleted", event);
             controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/dashboard.fxml", "Dashboard");
         } else {
@@ -152,7 +152,7 @@ public class BookingController extends AbstractController {
 
     @FXML
     public void onAddRoomButtonClick(Event event) {
-        session.update(tmpBooking.getId(), tmpBooking);
+        domainService.update(tmpBooking.getId(), tmpBooking);
 
         if (tmpBooking.getCheckInDateTime() == null || tmpBooking.getCheckOutDateTime() == null) {
             NotificationUtil.getInstance().showErrorNotification("Please select a Check-in and Check-out date", event);
@@ -166,13 +166,13 @@ public class BookingController extends AbstractController {
 
     @FXML
     public void onAddGuestButtonClick(Event event) {
-        session.update(tmpBooking.getId(), tmpBooking);
+        domainService.update(tmpBooking.getId(), tmpBooking);
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/search-customer.fxml", "Guests");
     }
 
     @FXML
     public void onInvoiceButtonClick(Event event) {
-        session.update(tmpBooking.getId(), tmpBooking);
+        domainService.update(tmpBooking.getId(), tmpBooking);
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/invoice.fxml", "Invoice");
     }
 

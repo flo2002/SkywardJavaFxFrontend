@@ -24,7 +24,7 @@ public class RoomCapacityController extends AbstractController {
     private int roomCapacityShift = 0;
 
     private Boolean isOccupied(RoomDto askedRoom, LocalDate date) {
-        List<RoomDto> availableRooms = session.getAvailableRooms(LocalDateTime.of(date, LocalTime.now()), LocalDateTime.of(date.plusDays(1), LocalTime.now()));
+        List<RoomDto> availableRooms = domainService.getAvailableRooms(LocalDateTime.of(date, LocalTime.now()), LocalDateTime.of(date.plusDays(1), LocalTime.now()));
         if (availableRooms != null) {
             for (RoomDto room : availableRooms) {
                 if (room.getId().equals(askedRoom.getId())) {
@@ -38,7 +38,7 @@ public class RoomCapacityController extends AbstractController {
     @FXML
     protected void initialize() {
         super.initialize();
-        List<RoomDto> rooms = session.getAll(RoomDto.class);
+        List<RoomDto> rooms = domainService.getAll(RoomDto.class);
         List<RoomCapacity> roomCaps = new ArrayList<>();
 
         for (RoomDto room : rooms) {
