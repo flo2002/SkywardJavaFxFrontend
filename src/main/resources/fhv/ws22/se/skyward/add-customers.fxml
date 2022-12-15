@@ -154,11 +154,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Button id="addguest" layoutX="309.0" layoutY="337.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="30.0" prefWidth="100.0" stylesheets="@css/styles.css" text="Save Guest" textFill="WHITE">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Button>
+
             <Text layoutX="41.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname">
                <font>
                   <Font size="18.0" />
@@ -228,6 +224,11 @@
                   </FXCollections>
                </items>
             </ChoiceBox>
+            <Button id="addguest" layoutX="309.0" layoutY="337.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="30.0" prefWidth="100.0" stylesheets="@css/styles.css" text="Save Guest" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <Button id="confirm" layoutX="1115.0" layoutY="169.0" mnemonicParsing="false" onAction="#onSearchCustomerButtonClick" prefHeight="30.0" prefWidth="100.0" stylesheets="@css/styles.css" text="Search Guest" textFill="WHITE" />
