@@ -50,13 +50,13 @@ public class AddRoomController extends AbstractController {
             CheckBox checkBox = new CheckBox();
 
             for (RoomDto room : tmpBooking.getRooms()) {
-                if (room.getId() == entry.getValue().getId()) {
+                if (room.getId().equals(entry.getValue().getId())) {
                     checkBox.setSelected(true);
                 }
             }
 
             checkBox.setOnAction(event -> {
-                selectedRooms.removeIf(room -> room.getId() == entry.getValue().getId());
+                selectedRooms.removeIf(room -> room.getId().equals(entry.getValue().getId()));
                 if (checkBox.isSelected()) {
                     selectedRooms.add(entry.getValue());
                 }
