@@ -230,17 +230,19 @@
                <Font size="14.0" />
             </font>
          </Label>
-         <Label fx:id="customerStreetPlaceholder" layoutX="10.0" layoutY="141.0" text="Address">
+         <Label fx:id="customerStreetPlaceholder" layoutX="10.0" layoutY="141.0" prefHeight="20.0" prefWidth="134.0" text="Address">
             <font>
                <Font size="14.0" />
             </font>
          </Label>
-         <Label fx:id="customerCityPlaceholder" layoutX="10.0" layoutY="161.0" text="Tel">
+         <Label fx:id="customerCityPlaceholder" layoutX="10.0" layoutY="161.0" prefHeight="20.0" prefWidth="117.0" text="Tel">
             <font>
                <Font size="14.0" />
             </font>
          </Label>
+
          <Label fx:id="customerCountryPlaceholder" layoutX="10.0" layoutY="181.0" prefHeight="15.0" prefWidth="186.0" text="Email">
+
             <font>
                <Font size="14.0" />
             </font>
@@ -280,6 +282,11 @@
                <Font size="14.0" />
             </font></Button>
          <Button id="confirm" layoutX="29.0" layoutY="331.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="30.0" prefWidth="120.0" stylesheets="@css/styles.css" text="Back" textFill="WHITE">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Button>
+         <Button id="confirm" fx:id="Payment" layoutX="29.0" layoutY="389.0" mnemonicParsing="false" onAction="#onPaymentClick" prefHeight="30.0" prefWidth="120.0" stylesheets="@css/styles.css" text="Sim. Online Pay." textFill="WHITE">
             <font>
                <Font size="14.0" />
             </font>
