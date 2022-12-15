@@ -3,7 +3,6 @@ package fhv.ws22.se.skyward.view;
 import fhv.ws22.se.skyward.domain.dtos.CustomerDto;
 import fhv.ws22.se.skyward.view.util.NotificationUtil;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -42,13 +41,13 @@ public class SearchCustomerController extends AbstractController {
             CheckBox checkBox = new CheckBox();
 
             for (CustomerDto customer : tmpBooking.getCustomers()) {
-                if (customer.getId() == entry.getValue().getId()) {
+                if (customer.getId().equals(entry.getValue().getId())) {
                     checkBox.setSelected(true);
                 }
             }
 
             checkBox.setOnAction(event -> {
-                selectedCustomer.removeIf(customer -> customer.getId() == entry.getValue().getId());
+                selectedCustomer.removeIf(customer -> customer.getId().equals(entry.getValue().getId()));
                 if (checkBox.isSelected()) {
                     selectedCustomer.add(entry.getValue());
                 }
