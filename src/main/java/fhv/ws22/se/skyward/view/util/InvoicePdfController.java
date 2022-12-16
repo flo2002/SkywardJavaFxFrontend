@@ -6,17 +6,12 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import fhv.ws22.se.skyward.domain.dtos.BookingDto;
-import fhv.ws22.se.skyward.domain.dtos.ChargeableItemDto;
 import fhv.ws22.se.skyward.domain.dtos.InvoiceDto;
 import fhv.ws22.se.skyward.view.AbstractController;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import java.io.*;
-import java.math.BigDecimal;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -24,27 +19,12 @@ import java.nio.file.Paths;
 
 
 public class InvoicePdfController extends AbstractController {
-
-
-
-   public static void createInvoice(BookingDto booking, InvoiceDto invoice)  {
+   public static void createInvoice(BookingDto booking, InvoiceDto invoice, String path) {
+       path = path + "/invoice.pdf";
        Document document = new Document();
        try {
-           DirectoryChooser directoryChooser = new DirectoryChooser();
-           String path = "Invoice.pdf";
-          /* File selectedDirectory = directoryChooser.showDialog(null);
-
-           if(selectedDirectory == null){
-
-
-           }else{
-               System.out.println(selectedDirectory.getAbsolutePath());
-           }*/
            PdfWriter.getInstance(document, new FileOutputStream(path));
-
-       } catch (DocumentException e) {
-           e.printStackTrace();
-       } catch (FileNotFoundException e) {
+       } catch (DocumentException | FileNotFoundException e) {
            e.printStackTrace();
        }
        document.setPageSize(PageSize.A4);
@@ -95,8 +75,8 @@ public class InvoicePdfController extends AbstractController {
 
 
        try {
-           Path path = Paths.get(ClassLoader.getSystemResource("SkyWardIcon.png").toURI());
-           Image img = Image.getInstance(path.toAbsolutePath().toString());
+           Path imgPath = Paths.get(ClassLoader.getSystemResource("SkyWardIcon.png").toURI());
+           Image img = Image.getInstance(imgPath.toAbsolutePath().toString());
            img.scalePercent(11);
            PdfPCell imageCell = new PdfPCell(img);
            imageCell.setBorder(Rectangle.NO_BORDER);
@@ -123,7 +103,11 @@ public class InvoicePdfController extends AbstractController {
        document.close();
 
 
-
-
+       // open the pdf file
+         try {
+              Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + path);
+         } catch (IOException e) {
+              e.printStackTrace();
+         }
    }
 }
