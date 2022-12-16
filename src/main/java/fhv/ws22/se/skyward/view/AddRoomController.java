@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class AddRoomController extends AbstractController {
@@ -151,8 +152,10 @@ public class AddRoomController extends AbstractController {
         rooms = session.filterRooms(rooms, filterMap);
         rooms.addAll(tmpBooking.getRooms());
 
+        HashSet<RoomDto> roomDisplay = new HashSet<RoomDto>(rooms);
+
         roomTable.getItems().clear();
-        roomTable.getItems().addAll(rooms);
+        roomTable.getItems().addAll(roomDisplay);
         roomTable.getSortOrder().add(roomNumberCol);
 
         bNrPlaceholder.setText(tmpBooking.getBookingNumber().toString());

@@ -203,6 +203,11 @@
                   </font></Label>
                <Line endX="66.69998168945312" layoutX="220.0" layoutY="28.0" startX="-70.10000610351562" />
                <Line endX="47.300018310546875" layoutX="241.0" layoutY="34.0" startX="-91.89999389648438" />
+               <Label layoutX="290.0" layoutY="2.0" prefHeight="26.0" prefWidth="18.0" text="€">
+                  <font>
+                     <Font size="18.0" />
+                  </font>
+               </Label>
             </children>
          </Pane>
          <Label fx:id="hotelNamePlaceholder" layoutX="535.0" layoutY="66.0" text="SkyWard Hotel">
@@ -210,7 +215,7 @@
                <Font size="14.0" />
             </font>
          </Label>
-         <Label fx:id="hotelStreetPlaceholder" layoutX="535.0" layoutY="87.0" prefHeight="20.0" prefWidth="86.0" text="our Address">
+         <Label fx:id="hotelStreetPlaceholder" layoutX="535.0" layoutY="87.0" prefHeight="20.0" prefWidth="138.0" text="our Address">
             <font>
                <Font size="14.0" />
             </font>
@@ -235,7 +240,9 @@
                <Font size="14.0" />
             </font>
          </Label>
-         <Label fx:id="customerCountryPlaceholder" layoutX="10.0" layoutY="181.0" prefHeight="20.0" prefWidth="112.0" text="Email">
+
+         <Label fx:id="customerCountryPlaceholder" layoutX="10.0" layoutY="181.0" prefHeight="15.0" prefWidth="186.0" text="Email">
+
             <font>
                <Font size="14.0" />
             </font>
@@ -254,7 +261,7 @@
    </AnchorPane>
    <AnchorPane layoutX="1130.0" layoutY="-2.0" prefHeight="713.0" prefWidth="170.0" style="-fx-background-color: #008080;">
       <children>
-         <Button layoutX="29.0" layoutY="142.0" mnemonicParsing="false" onAction="#onSplitButtonClick" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #80004C;" stylesheets="@css/styles.css" text="Split" textFill="WHITE">
+         <Button fx:id="splitButton" layoutX="29.0" layoutY="142.0" mnemonicParsing="false" onAction="#onSplitButtonClick" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #80004C;" stylesheets="@css/styles.css" text="Split" textFill="WHITE">
             <font>
                <Font size="14.0" />
             </font></Button>

@@ -18,6 +18,8 @@ public class InvoiceController extends AbstractController {
     private Button payButton;
     @FXML
     private Button editButton;
+    @FXML
+    private Button splitButton;
 
     @FXML
     private Label payPlaceholder;
@@ -92,6 +94,8 @@ public class InvoiceController extends AbstractController {
             }
         });
         namePlaceholderInput.setVisible(false);
+        splitButton.setDisable(true);
+
 
         updateData();
     }
