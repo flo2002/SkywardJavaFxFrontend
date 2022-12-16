@@ -6,6 +6,7 @@ import fhv.ws22.se.skyward.view.util.NotificationUtil;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -33,6 +34,9 @@ public class AddCustomerController extends AbstractController {
 
     @FXML
     private TextField countryTextField;
+
+    @FXML
+    private ChoiceBox<String> typeChoiceBox;
 
     @FXML
     private void initialize() {
@@ -98,7 +102,7 @@ public class AddCustomerController extends AbstractController {
 
         CustomerDto customerDto = new CustomerDto(firstNameTextField.getText(), lastNameTextField.getText(),
                 new AddressDto(streetTextField.getText(), Integer.parseInt(numberTextField.getText()), Integer.parseInt(zipTextField.getText()),
-                        cityTextField.getText(), countryTextField.getText()));
+                        cityTextField.getText(), countryTextField.getText()), typeChoiceBox.getValue());
 
         try {
             session.add(customerDto);
@@ -107,8 +111,8 @@ public class AddCustomerController extends AbstractController {
             customers.add(customerDto);
             tmpBooking.setCustomers(customers);
 
-            NotificationUtil.getInstance().showSuccessNotification("The guest was added to the booking", event);
-            controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
+            NotificationUtil.getInstance().showSuccessNotification("The guest was added to the system", event);
+            controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/search-customer.fxml", "Search");
         } catch (Exception e) {
             try {
                 NotificationUtil.getInstance().showErrorNotification(e.getCause().getCause().getCause().getMessage(), event);

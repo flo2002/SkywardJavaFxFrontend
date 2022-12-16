@@ -1,6 +1,5 @@
 package fhv.ws22.se.skyward.view;
 
-import com.itextpdf.text.DocumentException;
 import fhv.ws22.se.skyward.domain.dtos.ChargeableItemDto;
 import fhv.ws22.se.skyward.domain.dtos.CustomerDto;
 import fhv.ws22.se.skyward.view.util.InvoicePdfController;
@@ -8,23 +7,20 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.DirectoryChooser;
 import javafx.util.StringConverter;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
-
 
 public class InvoiceController extends AbstractController {
     @FXML
     private Button payButton;
     @FXML
     private Button editButton;
+    @FXML
+    private Button splitButton;
 
     @FXML
     private Label payPlaceholder;
@@ -99,6 +95,8 @@ public class InvoiceController extends AbstractController {
             }
         });
         namePlaceholderInput.setVisible(false);
+        splitButton.setDisable(true);
+
 
         updateData();
     }
@@ -152,6 +150,81 @@ public class InvoiceController extends AbstractController {
     @FXML
     public void backButtonClick(Event event) {
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
+    }
+
+    public void onPaymentClick(Event event){
+        String Res = tmpInvoice.getInvoiceNumber().toString();
+        BigDecimal totalPrice = new BigDecimal(0);
+
+        chargeableItemTable.getItems().clear();
+        List<ChargeableItemDto> chargeableItems = session.getAll(ChargeableItemDto.class);
+        chargeableItems.removeIf(chargeableItemDto -> !chargeableItemDto.getBooking().getId().equals(tmpInvoice.getBooking().getId()));
+        chargeableItemTable.getItems().addAll(chargeableItems);
+
+        for (ChargeableItemDto chargeableItem : chargeableItems) {
+            totalPrice = totalPrice.add(chargeableItem.getPrice().multiply(BigDecimal.valueOf(chargeableItem.getQuantity())));
+        }
+        DecimalFormatSymbols dfs = DecimalFormatSymbols.getInstance();
+        dfs.setDecimalSeparator('.');
+        DecimalFormat df = new DecimalFormat("0.00", dfs);
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(2);
+        String Amount = df.format(totalPrice);
+        String date = tmpInvoice.getInvoiceDateTime().toLocalDate().toString();
+        String[] datePart = date.split("-");
+        int month = Integer.parseInt(datePart[1]);
+
+        String monthName;
+        switch (month) {
+            case 1:
+                monthName = "JAN";
+                break;
+            case 2:
+                monthName = "FEB";
+                break;
+            case 3:
+                monthName = "MAR";
+                break;
+            case 4:
+                monthName = "APR";
+                break;
+            case 5:
+                monthName = "MAY";
+                break;
+            case 6:
+                monthName = "JUN";
+                break;
+            case 7:
+                monthName = "JUL";
+                break;
+            case 8:
+                monthName = "AUG";
+                break;
+            case 9:
+                monthName = "SEP";
+                break;
+            case 10:
+                monthName = "OCT";
+                break;
+            case 11:
+                monthName = "NOV";
+                break;
+            case 12:
+                monthName = "DEC";
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid month: " + month);
+        }
+
+        String formatDate = datePart[2] + monthName + datePart[0];
+        String Iban = "AT07123412341234123412";
+
+        payButton.setText("Unpay");
+        tmpInvoice.setIsPaid(true);
+        updateData();
+
+        String payment = "Res#="+Res+"#Date="+formatDate+"#Amount="+Amount+"#IBAN="+Iban+";";
+        session.handlePayment(payment);
     }
 
     public void updateData() {
