@@ -1,15 +1,24 @@
 package fhv.ws22.se.skyward.view;
 
+import com.itextpdf.text.DocumentException;
 import fhv.ws22.se.skyward.domain.dtos.ChargeableItemDto;
 import fhv.ws22.se.skyward.domain.dtos.CustomerDto;
+import fhv.ws22.se.skyward.view.util.InvoicePdfController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.DirectoryChooser;
 import javafx.util.StringConverter;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.util.List;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
+
 
 public class InvoiceController extends AbstractController {
     @FXML
@@ -134,7 +143,9 @@ public class InvoiceController extends AbstractController {
     }
 
     @FXML
-    public void onPrintButtonClick(Event event){
+    public void onPrintButtonClick(Event event) {
+
+        InvoicePdfController.createInvoice(tmpBooking, tmpInvoice);
 
     }
 
