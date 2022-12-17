@@ -30,9 +30,6 @@ public abstract class AbstractController {
         ServiceProviderService serviceProvider = session.getServiceProvider();
         domainService = (DomainService) serviceProvider.getService(DomainService.class);
         tmpDataService = (TmpDataService) serviceProvider.getService(TmpDataService.class);
-        System.out.println(serviceProvider);
-        System.out.println(domainService);
-        System.out.println(tmpDataService);
     }
 
     @FXML

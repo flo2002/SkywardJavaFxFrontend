@@ -92,7 +92,6 @@ public class DashboardController extends AbstractController {
 
     public void updateData(String filter) {
         arrivalTable.getItems().clear();
-        System.out.println(domainService);
         List<BookingDto> arrivalTempBookings = domainService.getAll(BookingDto.class);
         List<BookingDto> arrivalBookings = new ArrayList<>();
         for (BookingDto arrivalTempBooking : arrivalTempBookings) {
