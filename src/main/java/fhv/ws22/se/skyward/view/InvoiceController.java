@@ -163,8 +163,9 @@ public class InvoiceController extends AbstractController {
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
 
+    @FXML
     public void onPaymentClick(Event event){
-        String Res = tmpInvoice.getInvoiceNumber().toString();
+        String Res = tmpInvoice.getBooking().getBookingNumber().toString();
         BigDecimal totalPrice = new BigDecimal(0);
 
         chargeableItemTable.getItems().clear();
@@ -232,10 +233,11 @@ public class InvoiceController extends AbstractController {
 
         payButton.setText("Unpay");
         tmpInvoice.setIsPaid(true);
-        updateData();
 
         String payment = "Res#="+Res+"#Date="+formatDate+"#Amount="+Amount+"#IBAN="+Iban+";";
+        System.out.println("Sent Payment: " + payment);
         session.handlePayment(payment);
+        updateData();
     }
 
     public void updateData() {

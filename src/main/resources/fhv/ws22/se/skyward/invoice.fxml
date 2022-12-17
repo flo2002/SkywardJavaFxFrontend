@@ -225,7 +225,7 @@
                <Font size="14.0" />
             </font>
          </Label>
-         <Label fx:id="hotelCountryPlaceholder" layoutX="535.0" layoutY="124.0" prefHeight="27.0" prefWidth="82.0" text="our Email">
+         <Label fx:id="hotelCountryPlaceholder" layoutX="535.0" layoutY="124.0" prefHeight="27.0" prefWidth="134.0" text="our Email">
             <font>
                <Font size="14.0" />
             </font>
