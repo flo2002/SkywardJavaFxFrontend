@@ -169,7 +169,7 @@ public class InvoiceController extends AbstractController {
         BigDecimal totalPrice = new BigDecimal(0);
 
         chargeableItemTable.getItems().clear();
-        List<ChargeableItemDto> chargeableItems = session.getAll(ChargeableItemDto.class);
+        List<ChargeableItemDto> chargeableItems = domainService.getAll(ChargeableItemDto.class);
         chargeableItems.removeIf(chargeableItemDto -> !chargeableItemDto.getBooking().getId().equals(tmpInvoice.getBooking().getId()));
         chargeableItemTable.getItems().addAll(chargeableItems);
 
@@ -236,7 +236,7 @@ public class InvoiceController extends AbstractController {
         updateData();
 
         String payment = "Res#="+Res+"#Date="+formatDate+"#Amount="+Amount+"#IBAN="+Iban+";";
-        session.handlePayment(payment);
+        domainService.handlePayment(payment);
     }
 
     public void updateData() {

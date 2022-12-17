@@ -16,4 +16,6 @@ public interface DomainService extends Remote {
     <T extends AbstractDto> void update(UUID id, T t);
     <T extends AbstractDto> void delete(UUID id, Class<T> clazz);
     List<RoomDto> getAvailableRooms(LocalDateTime checkIn, LocalDateTime checkOut);
+
+    void handlePayment(String payment);
 }
