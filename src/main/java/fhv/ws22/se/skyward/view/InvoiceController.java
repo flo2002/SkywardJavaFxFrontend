@@ -154,7 +154,7 @@ public class InvoiceController extends AbstractController {
         if (selectedDirectory == null) {
             NotificationUtil.getInstance().showErrorNotification("No Directory selected", event);
         } else {
-            InvoicePdfController.createInvoice(tmpBooking, tmpInvoice, selectedDirectory.getAbsolutePath());
+            InvoicePdfController.createInvoice(tmpBooking, tmpInvoice, chargeableItemTable.getItems(), selectedDirectory.getAbsolutePath());
         }
     }
 

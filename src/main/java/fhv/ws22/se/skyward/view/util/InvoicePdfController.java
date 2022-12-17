@@ -6,6 +6,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import fhv.ws22.se.skyward.domain.dtos.BookingDto;
+import fhv.ws22.se.skyward.domain.dtos.ChargeableItemDto;
 import fhv.ws22.se.skyward.domain.dtos.InvoiceDto;
 import fhv.ws22.se.skyward.view.AbstractController;
 
@@ -16,11 +17,15 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class InvoicePdfController extends AbstractController {
-   public static void createInvoice(BookingDto booking, InvoiceDto invoice, String path) {
-       path = path + "/invoice.pdf";
+   public static void createInvoice(BookingDto booking, InvoiceDto invoice, List<ChargeableItemDto> chargeableItems, String path) {
+       String date = invoice.getInvoiceDateTime().toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+       path = path + "/" + date + "_invoice_" + invoice.getBilledCustomer().getLastName() + "_" + invoice.getBilledCustomer().getFirstName() + ".pdf";
        Document document = new Document();
        try {
            PdfWriter.getInstance(document, new FileOutputStream(path));
@@ -66,12 +71,23 @@ public class InvoicePdfController extends AbstractController {
        table4.getDefaultCell().setBorder(Rectangle.NO_BORDER);
        table4.addCell("Invoice Date: " + "\n" + invoice.getInvoiceDateTime().toLocalDate().toString());
        table4.addCell("Payment type :" + "\nPayment" );
-       if(invoice.getIsPaid().toString() == "false") {
+       if (invoice.getIsPaid().toString() == "false") {
            table4.addCell("Payed? : " + "\n No");
 
-       }else {
+       } else {
            table4.addCell("Payed? : " + "\n Yes");
        }
+
+       PdfPTable chargeableItemTable = new PdfPTable(3);
+       chargeableItemTable.addCell(new Paragraph("Items", fontSize_13));
+       chargeableItemTable.addCell(new Paragraph("Price", fontSize_13));
+       chargeableItemTable.addCell(new Paragraph("Nights/Quantity", fontSize_13));
+       for (ChargeableItemDto chargeableItem : chargeableItems) {
+           chargeableItemTable.addCell(chargeableItem.getName());
+           chargeableItemTable.addCell(chargeableItem.getPrice() + " €");
+           chargeableItemTable.addCell(chargeableItem.getQuantity().toString());
+       }
+
 
 
        try {
@@ -83,12 +99,13 @@ public class InvoicePdfController extends AbstractController {
            table.addCell(imageCell);
 
            document.add(table);
-
-
            document.add(new Paragraph("               Name : " + invoice.getBilledCustomer().getFirstName() + " " + invoice.getBilledCustomer().getLastName() + "\n  ", fontSize_13 ));
            document.add(table1);
            document.add(table2);
            document.add(table3);
+           document.add(new Paragraph("\n"));
+           document.add(chargeableItemTable);
+           document.add(new Paragraph("\n"));
            document.add(table4);
 
       } catch (DocumentException e) {
@@ -101,7 +118,6 @@ public class InvoicePdfController extends AbstractController {
            throw new RuntimeException(e);
        }
        document.close();
-
 
        // open the pdf file
          try {
