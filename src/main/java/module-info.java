@@ -5,6 +5,8 @@ module fhv.ws22.se.skyward {
     requires org.apache.logging.log4j;
     requires com.google.guice;
     requires java.rmi;
+    requires itextpdf;
+    requires io;
 
 
     exports fhv.ws22.se.skyward;

@@ -42,13 +42,13 @@ public class SearchCustomerController extends AbstractController {
             CheckBox checkBox = new CheckBox();
 
             for (CustomerDto customer : tmpBooking.getCustomers()) {
-                if (customer.getId() == entry.getValue().getId()) {
+                if (customer.getId().equals(entry.getValue().getId())) {
                     checkBox.setSelected(true);
                 }
             }
 
             checkBox.setOnAction(event -> {
-                selectedCustomer.removeIf(customer -> customer.getId() == entry.getValue().getId());
+                selectedCustomer.removeIf(customer -> customer.getId().equals(entry.getValue().getId()));
                 if (checkBox.isSelected()) {
                     selectedCustomer.add(entry.getValue());
                 }

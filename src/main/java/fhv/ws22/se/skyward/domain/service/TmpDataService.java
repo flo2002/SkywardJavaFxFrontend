@@ -20,4 +20,6 @@ public interface TmpDataService extends Remote {
     InvoiceDto getTmpInvoice();
     void resetTmpInvoice();
     void setTmpInvoice(InvoiceDto invoice);
+
+    void handlePayment(String payment);
 }
