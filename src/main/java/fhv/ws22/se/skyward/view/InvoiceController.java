@@ -2,12 +2,18 @@ package fhv.ws22.se.skyward.view;
 
 import fhv.ws22.se.skyward.domain.dtos.ChargeableItemDto;
 import fhv.ws22.se.skyward.domain.dtos.CustomerDto;
+import fhv.ws22.se.skyward.view.util.InvoicePdfController;
+import fhv.ws22.se.skyward.view.util.NotificationUtil;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -140,8 +146,16 @@ public class InvoiceController extends AbstractController {
     }
 
     @FXML
-    public void onPrintButtonClick(Event event){
+    public void onPrintButtonClick(Event event) {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        File selectedDirectory = directoryChooser.showDialog(stage);
 
+        if (selectedDirectory == null) {
+            NotificationUtil.getInstance().showErrorNotification("No Directory selected", event);
+        } else {
+            InvoicePdfController.createInvoice(tmpBooking, tmpInvoice, chargeableItemTable.getItems(), selectedDirectory.getAbsolutePath());
+        }
     }
 
     @FXML
