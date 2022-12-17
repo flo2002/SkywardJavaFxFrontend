@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Optional;
 
 public class InvoiceController extends AbstractController {
     @FXML
@@ -163,8 +164,31 @@ public class InvoiceController extends AbstractController {
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
 
+    @FXML
     public void onPaymentClick(Event event){
-        String Res = tmpInvoice.getInvoiceNumber().toString();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Simulate Online Payment");
+        alert.setHeaderText("Do you want to simulate an online payment?");
+        alert.setContentText("Choose an option.");
+
+        ButtonType fullPaymentButton = new ButtonType("Full Payment");
+        ButtonType partialPaymentButton = new ButtonType("15% Payment");
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(fullPaymentButton, partialPaymentButton, cancelButton);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == fullPaymentButton){
+            doPayment(100);
+        } else if (result.get() == partialPaymentButton) {
+            doPayment(15);
+        } else {
+            alert.close();
+        }
+    }
+
+    private void doPayment(Integer percentage) {
+        String Res = tmpInvoice.getBooking().getBookingNumber().toString();
         BigDecimal totalPrice = new BigDecimal(0);
 
         chargeableItemTable.getItems().clear();
@@ -180,7 +204,9 @@ public class InvoiceController extends AbstractController {
         DecimalFormat df = new DecimalFormat("0.00", dfs);
         df.setMaximumFractionDigits(2);
         df.setMinimumFractionDigits(2);
-        String Amount = df.format(totalPrice);
+        BigDecimal factor = new BigDecimal(percentage).divide(new BigDecimal(100));
+        System.out.println("Factor: " + factor);
+        String Amount = df.format(totalPrice.multiply(factor));
         String date = tmpInvoice.getInvoiceDateTime().toLocalDate().toString();
         String[] datePart = date.split("-");
         int month = Integer.parseInt(datePart[1]);
@@ -232,10 +258,11 @@ public class InvoiceController extends AbstractController {
 
         payButton.setText("Unpay");
         tmpInvoice.setIsPaid(true);
-        updateData();
 
         String payment = "Res#="+Res+"#Date="+formatDate+"#Amount="+Amount+"#IBAN="+Iban+";";
+        System.out.println("Sent Payment: " + payment);
         session.handlePayment(payment);
+        updateData();
     }
 
     public void updateData() {
