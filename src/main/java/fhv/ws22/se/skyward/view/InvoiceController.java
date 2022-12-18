@@ -206,7 +206,6 @@ public class InvoiceController extends AbstractController {
         df.setMaximumFractionDigits(2);
         df.setMinimumFractionDigits(2);
         BigDecimal factor = new BigDecimal(percentage).divide(new BigDecimal(100));
-        System.out.println("Factor: " + factor);
         String Amount = df.format(totalPrice.multiply(factor));
         String date = tmpInvoice.getInvoiceDateTime().toLocalDate().toString();
         String[] datePart = date.split("-");
