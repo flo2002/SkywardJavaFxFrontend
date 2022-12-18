@@ -26,7 +26,8 @@ public class InvoiceOverviewController extends AbstractController {
 
     @FXML
     protected void initialize() {
-        tmpBooking = session.getTmpBooking();
+        super.initialize();
+        tmpBooking = tmpDataService.getTmpBooking();
 
         invoiceNumberCol.setCellValueFactory(new PropertyValueFactory<>("invoiceNumber"));
         invoiceDateTimeCol.setCellValueFactory(new PropertyValueFactory<>("invoiceDateTime"));
@@ -37,7 +38,7 @@ public class InvoiceOverviewController extends AbstractController {
             row.setOnMouseClicked(mouseEvent -> {
                 if (mouseEvent.getClickCount() == 2 && (! row.isEmpty()) ) {
                     InvoiceDto rowData = row.getItem();
-                    session.setTmpInvoice(rowData);
+                    tmpDataService.setTmpInvoice(rowData);
                     controllerNavigationUtil.navigate(mouseEvent,"src/main/resources/fhv/ws22/se/skyward/invoice.fxml", "Invoice");
                 }
             });
@@ -54,7 +55,7 @@ public class InvoiceOverviewController extends AbstractController {
 
     public void updateData(String filter) {
         table.getItems().clear();
-        List<InvoiceDto> invoices = session.getAll(InvoiceDto.class);
+        List<InvoiceDto> invoices = domainService.getAll(InvoiceDto.class);
         if (filter != null && !filter.isEmpty()) {
             invoices.removeIf(invoice -> invoice.getBooking().getCustomers().stream().noneMatch(customerDto -> {
                 return customerDto.getFirstName().toLowerCase().contains(filter.toLowerCase()) || customerDto.getLastName().toLowerCase().contains(filter.toLowerCase());

@@ -43,6 +43,7 @@ public class DashboardController extends AbstractController {
     private TableColumn<BookingDto, String> departureIsCheckedInCol;
     @FXML
     protected void initialize() {
+        super.initialize();
         arrivalBookingNumberCol.setCellValueFactory(new PropertyValueFactory<>("bookingNumber"));
         arrivalCheckInDateTimeCol.setCellValueFactory(entry -> new SimpleObjectProperty<>(entry.getValue().getCheckInDateTime() == null ? LocalDate.of(1970, 1, 1) : entry.getValue().getCheckInDateTime().toLocalDate()));
         arrivalCheckOutDateTimeCol.setCellValueFactory(entry -> new SimpleObjectProperty<>(entry.getValue().getCheckOutDateTime() == null ? LocalDate.of(1970, 1, 1) : entry.getValue().getCheckOutDateTime().toLocalDate()));
@@ -60,7 +61,7 @@ public class DashboardController extends AbstractController {
             row.setOnMouseClicked(mouseEvent -> {
                 if (mouseEvent.getClickCount() == 2 && (! row.isEmpty()) ) {
                     BookingDto rowData = row.getItem();
-                    session.setTmpBooking(rowData);
+                    tmpDataService.setTmpBooking(rowData);
                     controllerNavigationUtil.navigate(mouseEvent,"src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
                 }
             });
@@ -71,7 +72,7 @@ public class DashboardController extends AbstractController {
             row.setOnMouseClicked(mouseEvent -> {
                 if (mouseEvent.getClickCount() == 2 && (! row.isEmpty()) ) {
                     BookingDto rowData = row.getItem();
-                    session.setTmpBooking(rowData);
+                    tmpDataService.setTmpBooking(rowData);
                     controllerNavigationUtil.navigate(mouseEvent,"src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
                 }
             });
@@ -85,13 +86,13 @@ public class DashboardController extends AbstractController {
     }
 
     public void onCreateBookingButtonClick(Event event) {
-        session.resetTmpBooking();
+        tmpDataService.resetTmpBooking();
         controllerNavigationUtil.navigate(event, "src/main/resources/fhv/ws22/se/skyward/bookings.fxml", "Booking");
     }
 
     public void updateData(String filter) {
         arrivalTable.getItems().clear();
-        List<BookingDto> arrivalTempBookings = session.getAll(BookingDto.class);
+        List<BookingDto> arrivalTempBookings = domainService.getAll(BookingDto.class);
         List<BookingDto> arrivalBookings = new ArrayList<>();
         for (BookingDto arrivalTempBooking : arrivalTempBookings) {
             if (arrivalTempBooking.getCheckInDateTime() != null) {
@@ -110,7 +111,7 @@ public class DashboardController extends AbstractController {
         arrivalTable.getSortOrder().setAll(arrivalCheckInDateTimeCol);
 
         departureTable.getItems().clear();
-        List<BookingDto> departureTempBookings = session.getAll(BookingDto.class);
+        List<BookingDto> departureTempBookings = domainService.getAll(BookingDto.class);
         List<BookingDto> departureBookings = new ArrayList<>();
         for (BookingDto departureTempBooking : departureTempBookings) {
             if (departureTempBooking.getCheckOutDateTime() != null) {

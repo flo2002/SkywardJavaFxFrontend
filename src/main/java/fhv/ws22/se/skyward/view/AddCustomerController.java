@@ -39,8 +39,9 @@ public class AddCustomerController extends AbstractController {
     private ChoiceBox<String> typeChoiceBox;
 
     @FXML
-    private void initialize() {
-        tmpBooking = session.getTmpBooking();
+    protected void initialize() {
+        super.initialize();
+        tmpBooking = tmpDataService.getTmpBooking();
         bNrPlaceholder.setText(tmpBooking.getBookingNumber().toString());
 
         zipTextField.focusedProperty().addListener((arg0, oldValue, newValue) -> {
@@ -62,7 +63,7 @@ public class AddCustomerController extends AbstractController {
 
     @FXML
     public void onConfirmButtonClick(ActionEvent event) {
-        tmpBooking = session.getTmpBooking();
+        tmpBooking = tmpDataService.getTmpBooking();
 
         if (firstNameTextField.getText().isEmpty()) {
             firstNameTextField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
@@ -105,7 +106,7 @@ public class AddCustomerController extends AbstractController {
                         cityTextField.getText(), countryTextField.getText()), typeChoiceBox.getValue());
 
         try {
-            session.add(customerDto);
+            domainService.add(customerDto);
 
             List<CustomerDto> customers = tmpBooking.getCustomers();
             customers.add(customerDto);
