@@ -192,7 +192,8 @@ public class BookingController extends AbstractController {
             for (RoomDto room : tmpBooking.getRooms()) {
                 price = price.add(tmpDataService.getPrice(room.getRoomTypeName()));
             }
-            nights.setText(nightCount + "=" + price);
+            price = price.multiply(new BigDecimal(nightCount));
+            nights.setText(nightCount + " = " + price + "€");
         }
         
         if (!editable) {
