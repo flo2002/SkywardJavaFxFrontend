@@ -4,12 +4,14 @@ import fhv.ws22.se.skyward.domain.dtos.BookingDto;
 import fhv.ws22.se.skyward.domain.dtos.CustomerDto;
 import fhv.ws22.se.skyward.domain.dtos.RoomDto;
 import fhv.ws22.se.skyward.view.util.NotificationUtil;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -46,6 +48,8 @@ public class BookingController extends AbstractController {
     private TableColumn<RoomDto, String> roomTypeNameCol;
     @FXML
     private TableColumn<RoomDto, String> roomStateNameCol;
+    @FXML
+    private TableColumn<RoomDto, BigDecimal> roomPriceCol;
 
     @FXML
     private TableView<CustomerDto> customerTable;
@@ -76,6 +80,8 @@ public class BookingController extends AbstractController {
         roomNumberCol.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
         roomTypeNameCol.setCellValueFactory(new PropertyValueFactory<>("roomTypeName"));
         roomStateNameCol.setCellValueFactory(new PropertyValueFactory<>("roomStateName"));
+        roomPriceCol.setCellValueFactory(entry -> new SimpleObjectProperty<>(tmpDataService.getPrice(entry.getValue().getRoomTypeName())));
+
 
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -181,7 +187,12 @@ public class BookingController extends AbstractController {
             if (!tmpBooking.getIsCheckedIn() && tmpBooking.getCheckOutDateTime().toLocalDate().minusDays(1).isBefore(LocalDate.now())) {
                 editable = false;
             }
-            nights.setText(String.valueOf(Duration.between(tmpBooking.getCheckInDateTime(), tmpBooking.getCheckOutDateTime()).toDays() + 1));
+            String nightCount = String.valueOf(Duration.between(tmpBooking.getCheckInDateTime(), tmpBooking.getCheckOutDateTime()).toDays() + 1);
+            BigDecimal price = new BigDecimal("0.00");
+            for (RoomDto room : tmpBooking.getRooms()) {
+                price = price.add(tmpDataService.getPrice(room.getRoomTypeName()));
+            }
+            nights.setText(nightCount + "=" + price);
         }
         
         if (!editable) {
