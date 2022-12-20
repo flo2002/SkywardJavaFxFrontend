@@ -189,7 +189,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="953.0" layoutY="229.0" mnemonicParsing="false" onAction="#onDeleteBookingButtonClick" prefHeight="30.0" prefWidth="146.0" style="-fx-background-color: #d45959;" text="Delete Booking" textFill="WHITE">
+      <Button fx:id="deleteButton" layoutX="953.0" layoutY="229.0" mnemonicParsing="false" onAction="#onDeleteBookingButtonClick" prefHeight="30.0" prefWidth="146.0" style="-fx-background-color: #d45959;" text="Delete Booking" textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font>

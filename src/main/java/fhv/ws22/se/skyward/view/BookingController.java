@@ -28,6 +28,8 @@ public class BookingController extends AbstractController {
     private Button addRoomButton;
     @FXML
     private Button addCustomerButton;
+    @FXML
+    private Button deleteButton;
 
     @FXML
     public Label bNrPlaceholder;
@@ -203,6 +205,7 @@ public class BookingController extends AbstractController {
             addCustomerButton.setDisable(true);
             checkInDatePicker.setDisable(true);
             checkOutDatePicker.setDisable(true);
+            deleteButton.setDisable(true);
         }
         
         if (tmpBooking.getIsCheckedIn() != null && tmpBooking.getIsCheckedIn()) {

@@ -4,6 +4,7 @@ import fhv.ws22.se.skyward.domain.dtos.ChargeableItemDto;
 import fhv.ws22.se.skyward.domain.dtos.CustomerDto;
 import fhv.ws22.se.skyward.view.util.InvoicePdfController;
 import fhv.ws22.se.skyward.view.util.NotificationUtil;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -15,6 +16,8 @@ import javafx.util.StringConverter;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
@@ -82,7 +85,7 @@ public class InvoiceController extends AbstractController {
         tmpInvoice = tmpDataService.getTmpInvoice();
 
         itemNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        itemPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        itemPriceCol.setCellValueFactory(entry -> new SimpleObjectProperty<>(entry.getValue().getPrice().setScale(2, RoundingMode.HALF_UP)));
         itemQuantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         namePlaceholderInput.getItems().addAll(tmpBooking.getCustomers());
@@ -205,7 +208,7 @@ public class InvoiceController extends AbstractController {
         DecimalFormat df = new DecimalFormat("0.00", dfs);
         df.setMaximumFractionDigits(2);
         df.setMinimumFractionDigits(2);
-        BigDecimal factor = new BigDecimal(percentage).divide(new BigDecimal(100));
+        BigDecimal factor = new BigDecimal(percentage).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
         String Amount = df.format(totalPrice.multiply(factor));
         String date = tmpInvoice.getInvoiceDateTime().toLocalDate().toString();
         String[] datePart = date.split("-");
@@ -296,6 +299,7 @@ public class InvoiceController extends AbstractController {
         for (ChargeableItemDto chargeableItem : chargeableItems) {
             totalPrice = totalPrice.add(chargeableItem.getPrice().multiply(BigDecimal.valueOf(chargeableItem.getQuantity())));
         }
+        totalPrice = totalPrice.setScale(2, RoundingMode.HALF_UP);
 
         totalPricePlaceholder.setText(totalPrice.toString());
     }
