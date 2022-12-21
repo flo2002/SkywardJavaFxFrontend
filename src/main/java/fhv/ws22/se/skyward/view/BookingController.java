@@ -189,7 +189,7 @@ public class BookingController extends AbstractController {
             if (!tmpBooking.getIsCheckedIn() && tmpBooking.getCheckOutDateTime().toLocalDate().minusDays(1).isBefore(LocalDate.now())) {
                 editable = false;
             }
-            String nightCount = String.valueOf(Duration.between(tmpBooking.getCheckInDateTime(), tmpBooking.getCheckOutDateTime()).toDays() + 1);
+            String nightCount = String.valueOf(Duration.between(tmpBooking.getCheckInDateTime(), tmpBooking.getCheckOutDateTime()).toDays());
             BigDecimal price = new BigDecimal("0.00");
             for (RoomDto room : tmpBooking.getRooms()) {
                 price = price.add(tmpDataService.getPrice(room.getRoomTypeName()));
