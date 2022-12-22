@@ -197,7 +197,7 @@
                   <font>
                      <Font size="18.0" />
                   </font></Label>
-               <Label layoutX="95.0" layoutY="1.0" text="Total Price:">
+               <Label layoutX="60.0" layoutY="1.0" text="Total Price:">
                   <font>
                      <Font size="18.0" />
                   </font></Label>
