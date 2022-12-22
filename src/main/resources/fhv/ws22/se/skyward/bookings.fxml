@@ -138,7 +138,7 @@
                 <TableColumn fx:id="roomNumberCol" editable="false" prefWidth="100" text="Room Number" />
                 <TableColumn fx:id="roomTypeNameCol" minWidth="0.0" prefWidth="143.0666961669922" text="Type" />
                  <TableColumn fx:id="roomStateNameCol" prefWidth="123.99998779296874" text="Condition" />
-                 <TableColumn fx:id="roomPriceCol" prefWidth="100" text="Price" />
+                 <TableColumn fx:id="roomPriceCol" prefWidth="100" text="Price/Night" />
               </columns>
             </TableView>
          </children>

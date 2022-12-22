@@ -122,7 +122,7 @@
             <font>
                <Font size="18.0" />
             </font></Label>
-         <Label layoutX="484.0" layoutY="535.0" text="Payed:">
+         <Label layoutX="484.0" layoutY="535.0" text="Paid:">
             <font>
                <Font size="18.0" />
             </font></Label>
@@ -197,7 +197,7 @@
                   <font>
                      <Font size="18.0" />
                   </font></Label>
-               <Label layoutX="95.0" layoutY="1.0" text="Total:">
+               <Label layoutX="95.0" layoutY="1.0" text="Total Price:">
                   <font>
                      <Font size="18.0" />
                   </font></Label>
