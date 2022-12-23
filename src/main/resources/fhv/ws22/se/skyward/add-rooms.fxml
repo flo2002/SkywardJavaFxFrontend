@@ -114,7 +114,7 @@
                   <TableColumn fx:id="checkboxCol" prefWidth="72.800048828125" text="Checkbox" />
                   <TableColumn fx:id="roomNumberCol" editable="false" prefWidth="193.60003662109375" styleClass="css/style.css" text="Room Number" />
                   <TableColumn fx:id="roomTypeNameCol" prefWidth="199.2000732421875" text="Type" />
-                  <TableColumn fx:id="roomTypePriceCol" prefWidth="234.39990234375" text="Cost" />
+                  <TableColumn fx:id="roomPriceCol" prefWidth="234.39990234375" text="Price" />
                   <TableColumn fx:id="roomStateNameCol" prefWidth="250.39995117187505" text="State" />
                </columns>
             </TableView>

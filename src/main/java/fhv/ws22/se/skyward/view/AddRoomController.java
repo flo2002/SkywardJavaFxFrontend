@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +24,8 @@ public class AddRoomController extends AbstractController {
     private TableColumn<RoomDto, String> roomTypeNameCol;
     @FXML
     private TableColumn<RoomDto, String> roomStateNameCol;
+    @FXML
+    private TableColumn<RoomDto, BigDecimal> roomPriceCol;
 
     @FXML
     private CheckBox filterSingleRoom;
@@ -48,6 +51,7 @@ public class AddRoomController extends AbstractController {
         roomNumberCol.setSortType(TableColumn.SortType.ASCENDING);
         roomTypeNameCol.setCellValueFactory(new PropertyValueFactory<>("roomTypeName"));
         roomStateNameCol.setCellValueFactory(new PropertyValueFactory<>("roomStateName"));
+        roomPriceCol.setCellValueFactory(entry -> new SimpleObjectProperty<>(tmpDataService.getPrice(entry.getValue().getRoomTypeName())));
         checkboxCol.setCellValueFactory(entry -> {
             CheckBox checkBox = new CheckBox();
 

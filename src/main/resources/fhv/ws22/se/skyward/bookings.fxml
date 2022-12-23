@@ -135,9 +135,10 @@
             </TableView>
             <TableView fx:id="roomTable" prefHeight="380.0" prefWidth="590.0" stylesheets="@css/styles.css">
               <columns>
-                <TableColumn fx:id="roomNumberCol" editable="false" prefWidth="168.53338927030563" text="Room Number" />
-                <TableColumn fx:id="roomTypeNameCol" minWidth="0.0" prefWidth="157.0666961669922" text="Type" />
-                 <TableColumn fx:id="roomStateNameCol" prefWidth="143.99998779296874" text="Condition" />
+                <TableColumn fx:id="roomNumberCol" editable="false" prefWidth="100" text="Room Number" />
+                <TableColumn fx:id="roomTypeNameCol" minWidth="0.0" prefWidth="143.0666961669922" text="Type" />
+                 <TableColumn fx:id="roomStateNameCol" prefWidth="123.99998779296874" text="Condition" />
+                 <TableColumn fx:id="roomPriceCol" prefWidth="100" text="Price/Night" />
               </columns>
             </TableView>
          </children>
@@ -183,12 +184,12 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="nights" layoutX="827.0" layoutY="225.0" prefHeight="35.0" prefWidth="23.0" text="x">
+      <Label fx:id="nights" layoutX="827.0" layoutY="225.0" prefHeight="35.0" prefWidth="230.0" text="x">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="953.0" layoutY="229.0" mnemonicParsing="false" onAction="#onDeleteBookingButtonClick" prefHeight="30.0" prefWidth="146.0" style="-fx-background-color: #d45959;" text="Delete Booking" textFill="WHITE">
+      <Button fx:id="deleteButton" layoutX="953.0" layoutY="229.0" mnemonicParsing="false" onAction="#onDeleteBookingButtonClick" prefHeight="30.0" prefWidth="146.0" style="-fx-background-color: #d45959;" text="Delete Booking" textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font>
