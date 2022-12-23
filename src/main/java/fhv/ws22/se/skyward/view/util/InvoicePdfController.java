@@ -13,12 +13,12 @@ import fhv.ws22.se.skyward.view.AbstractController;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -72,10 +72,10 @@ public class InvoicePdfController extends AbstractController {
        table4.addCell("Invoice Date: " + "\n" + invoice.getInvoiceDateTime().toLocalDate().toString());
        table4.addCell("Payment type :" + "\nPayment" );
        if (invoice.getIsPaid().toString() == "false") {
-           table4.addCell("Payed? : " + "\n No");
+           table4.addCell("Paid? : " + "\n No");
 
        } else {
-           table4.addCell("Payed? : " + "\n Yes");
+           table4.addCell("Paid? : " + "\n Yes");
        }
 
        PdfPTable chargeableItemTable = new PdfPTable(3);
@@ -87,6 +87,15 @@ public class InvoicePdfController extends AbstractController {
            chargeableItemTable.addCell(chargeableItem.getPrice() + " €");
            chargeableItemTable.addCell(chargeableItem.getQuantity().toString());
        }
+
+       PdfPTable table5 = new PdfPTable(1);
+       table5.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+       BigDecimal totalPrice = new BigDecimal(0);
+       for (ChargeableItemDto chargeableItem : chargeableItems) {
+           totalPrice = totalPrice.add(chargeableItem.getPrice().multiply(BigDecimal.valueOf(chargeableItem.getQuantity())));
+       }
+       table5.addCell("\n" + "Total Price : " + totalPrice + " €" + "\n ");
+
 
 
 
@@ -107,6 +116,8 @@ public class InvoicePdfController extends AbstractController {
            document.add(chargeableItemTable);
            document.add(new Paragraph("\n"));
            document.add(table4);
+           document.add(new Paragraph("\n"));
+           document.add(table5);
 
       } catch (DocumentException e) {
            e.printStackTrace();}
